@@ -57,3 +57,22 @@ local.properties
 .project
 
 .classpath
+
+
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/fe-app-car/node_modules
+
+# testing
+/fe-app-car/coverage
+
+# production
+/fe-app-car/build
+
+# misc
+/fe-app-car/.DS_Store
+/fe-app-car/.env
+/fe-app-car/npm-debug.log*
+/fe-app-car/yarn-debug.log*
+/fe-app-car/yarn-error.log*
