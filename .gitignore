@@ -1,3 +1,4 @@
+# Back end
 .metadata
 bin/
 tmp/
@@ -58,7 +59,7 @@ local.properties
 
 .classpath
 
-
+# Front end
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies

@@ -3,3 +3,13 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.titulo{
+  display: flex;
+  justify-content: center;  
+  font-variant: small-caps;
+  font-size: 25px;
+  background: #0e022f;
+  color: #fff;
+  padding: 1em;
+}
