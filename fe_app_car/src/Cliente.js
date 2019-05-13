@@ -4,9 +4,9 @@ import './Cliente.css';
 
 class Cliente extends Component {
   state = {
-    viaSelecionada : 0,
     listaTipoSelect : [],
     kmCadastro : "",
+    viaSelecionada : 0,
     mmPneu : "",
     mmDisco : "",
     mmPastilha : "",
@@ -23,9 +23,7 @@ class Cliente extends Component {
     })
     .catch((error) => {
       console.log(error);
-    });
-
-        
+    });       
   }
 
   adicionarVia = () => {
@@ -50,7 +48,7 @@ class Cliente extends Component {
         mesesFluido : `${this.state.mesesFluido}`,
         mesesAditivo : `${this.state.mesesAditivo}`
     }).then((response) => {
-        this.props.history.push("/");
+        this.props.history.push("/pecas");
       })
       .catch((error) => {
         console.log(error);
@@ -58,17 +56,15 @@ class Cliente extends Component {
   }
 
   render() {
-    console.log(this.state.viaSelecionada);
     return (      
       <form className="html-login" onSubmit={this.submeterDados}>        
         <div className="margem-cadastro">
-        <div className="titulo-pecas">Selecione seu carro</div> 
         <div className="titulo-pecas">Entre com as informações abaixo</div> 
           <div className="dados">
             <div className="texto-cadastro">Quilometragem</div>
             <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} required={true}></input>
             <div className="texto-cadastro">Via</div>
-            <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} className="selectVia" required={true}>
+            <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} required={true} className="selectVia">
                 <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
                     {this.adicionarVia()}
             </select>
