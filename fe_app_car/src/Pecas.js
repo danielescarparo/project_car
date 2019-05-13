@@ -4,32 +4,41 @@ import './Pecas.css';
 
 class Pecas extends Component {
   state = {
-    carroSelecionado : 0,
-    listaCarros : []
+
   };
 
   componentDidMount(){
-    //busca no backend os carros
-    axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/carros')
-    .then((response) => {
-        console.log(response.data);
-      this.setState({ listaCarros: response.data });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+
   }
 
-  recebeDado = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  }
+  exibeRetangulos = () => {
+    const copiaListaPecas = [];
 
-  adicionarCarros = () => {
-    return this.state.listaCarros.map((carro) => {
-        return <option key={carro.id} className="carros" value={carro.id}>{`Marca: ${carro.marca}, Modelo: ${carro.modelo}, Versão: ${carro.versao}, Ano: ${carro.ano}, Motor: ${carro.motor}`} </option>
-    });
-  }
-
+    for(let index in this.state.listaPecas){
+      if(this.state.listaPecas[index].alerta === false)
+      {
+      copiaListaPecas.push(
+      <div key={index} className="rectangle"> 
+        <div>{`Peça: ${this.state.listaPecas[index].nome}`}</div>
+        <div>{`Vida útil: ${this.state.listaPecas[index].km} km`}</div>
+        <div>{`Km atual: ${this.state.listaPecas[index].km_atual} km`}</div>
+        <button className="botao-troca">Troquei peça</button>
+      </div>)
+      }else{
+        copiaListaPecas.push(
+          <div key={index} className="rectangle"> 
+            <div>{`Peça: ${this.state.listaPecas[index].nome}`}</div>
+            <div>{`Vida útil: ${this.state.listaPecas[index].km} km`}</div>
+            <div>{`Km atual: ${this.state.listaPecas[index].km_atual} km`}</div>
+            <div className="fundo-aviso">
+              <i className="alerta fas fa-exclamation-triangle fa-2x"></i> 
+              <div>Precisa ser trocada</div>
+            </div>
+            <button className="botao-troca">Troquei peça</button>
+          </div>)
+      } 
+      }
+    }
   render() {
     return (
       <div>        
@@ -38,6 +47,8 @@ class Pecas extends Component {
           <option disabled value=""> --- Selecione seu carro --- </option>
             {this.adicionarCarros()}
         </select>
+        <div className="titulo-pecas">Informações das peças</div> 
+        <div className="group-pecas">{this.exibeRetangulos()}</div>
       </div>
     );
   }
