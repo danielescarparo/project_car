@@ -1,0 +1,48 @@
+.titulo-pecas{
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    font-size: 1.5em;
+    font-family: monospace;
+}
+
+.group-pecas{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.botao-troca{
+    padding: 4px 20px;
+    color: #fff;
+    background-color: #0e022f;
+    /* border-color: #122b40; */
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.alerta{
+    color: #f00;
+    margin-right: 10px;
+}
+
+.fundo-aviso{
+    margin-top: 5px;
+    justify-content: center;
+    display: flex;
+    background: pink;
+    padding: 3px;
+    border-radius: 4px;
+}
+
+.rectangle{
+    width: 200px;
+    margin: 50px;
+    font-size: 0.8em;
+    background: #fff;
+    border: 1px solid #0e022f;
+    border-radius: 4px;
+    padding: 10px;
+}

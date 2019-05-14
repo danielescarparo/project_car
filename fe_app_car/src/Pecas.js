@@ -46,7 +46,7 @@ class Pecas extends Component {
         <select defaultValue="" name="carroSelecionado" onChange={this.recebeDado} required={true}>
           <option disabled value=""> --- Selecione seu carro --- </option>
             {this.adicionarCarros()}
-        </select>
+        </select>        
         <div className="titulo-pecas">Informações das peças</div> 
         <div className="group-pecas">{this.exibeRetangulos()}</div>
       </div>

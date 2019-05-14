@@ -11,11 +11,11 @@ ReactDOM.render(
   <BrowserRouter>
     <div className="titulo">Peças de carros para manutenção</div>
   <Switch>      
-    <Route exact path="/" component={Cliente}/>
-    <Route exact path="/cliente" component={Cliente}/>
+    <Route exact path="/" component={Carro}/>
+    <Route exact path="/carros/:id" component={Cliente}/>
     <Route exact path="/mecanico" component={Mecanico}/>
     <Route exact path="/pecas" component={Carro}/>
-    {/* <Route exact path="/carros/:id" component={Peca}/> */}
+    {/* <Route exact path="/carros/:banana" component={Peca}/> */}
   </Switch> 
 </BrowserRouter>,
   document.getElementById('root')

@@ -10,6 +10,7 @@
 .html-login{
   display: flex;
   justify-content: center;
+  width: 250px;
 }
 .margem-cadastro{
   margin-top: 10px;
@@ -43,4 +44,20 @@
 }
 .selectVia{
   margin-bottom: 20px;
+}
+.dois-blocos{
+  display: flex;
+  justify-content: center;
+}
+.limite{
+  width: 250px;
+  height: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0 4px 4px 0;
+}
+.preenchido{ 
+  height: 20px;
+  background: #b6abd4;
+  color: #383535;
 }

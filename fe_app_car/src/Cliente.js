@@ -11,7 +11,8 @@ class Cliente extends Component {
     mmDisco : "",
     mmPastilha : "",
     mesesFluido : "",
-    mesesAditivo : ""
+    mesesAditivo : "",
+    carro : {}
   };
 
   componentDidMount(){
@@ -23,7 +24,16 @@ class Cliente extends Component {
     })
     .catch((error) => {
       console.log(error);
-    });       
+    });
+    
+    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
+    .then((response) => {
+        console.log(response.data);
+        this.setState({ carro : response.data });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   adicionarVia = () => {
@@ -55,8 +65,20 @@ class Cliente extends Component {
       });
   }
 
+  preenchimentoPorcentagem = () => {
+    const elementos = [];
+
+    for(let index in this.state.carro.pecas){
+      elementos.push(<div className="limite"><div key={this.state.carro.pecas[index].id} className="preenchido" style={{ width: `${this.state.carro.pecas[index].state}%` }}>{`${this.state.carro.pecas[index].state}%`}</div></div>);
+    }
+
+    return elementos;
+  }
+
   render() {
-    return (      
+    console.log(this.state.carro);
+    return (
+      <div className="dois-blocos">
       <form className="html-login" onSubmit={this.submeterDados}>        
         <div className="margem-cadastro">
         <div className="titulo-pecas">Entre com as informações abaixo</div> 
@@ -69,7 +91,8 @@ class Cliente extends Component {
                     {this.adicionarVia()}
             </select>
             <div className="texto-cadastro">Pneu - Profundidade em mm</div>
-            <input className="input-estilo" name="mmPneu" onChange={this.recebeDado} required={true}></input>
+            <input className="input-estilo" name="mmPneu" onChange={this.recebeDado} required={true}></input>            
+            {this.preenchimentoPorcentagem()}
             <div className="texto-cadastro">Disco de freio - Espessura em mm</div>
             <input className="input-estilo" type="text" name="mmDisco" onChange={this.recebeDado} required={true}></input>
             <div className="texto-cadastro">Pastilha de freio - Espessura em mm</div>
@@ -81,7 +104,8 @@ class Cliente extends Component {
             <button className="button-cadastro" type="submit">Submeter</button>
           </div>            
         </div>
-      </form>  
+      </form>
+      </div>
     );
   }
 }

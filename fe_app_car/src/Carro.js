@@ -21,18 +21,29 @@ class Carro extends Component {
         });    
     }
 
-    buscaPecas = () => {
-        axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carro/${this.state.carroSelecionado}/`)
+    // buscaPecas = () => {
+    //     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carro/${this.state.carroSelecionado}/`)
+    //     .then((response) => {
+    //       this.setState({ listaPecas: response.data });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+    
+    confirmarCarro = () => {
+        axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.state.carroSelecionado}`)
         .then((response) => {
-          this.setState({ listaPecas: response.data });
+            this.props.history.push(`carros/${this.state.carroSelecionado}`);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-    
+
     recebeDado = (e) => {
-        this.setState({[e.target.name]: e.target.value}, this.buscaPecas);
+        this.setState({[e.target.name]: e.target.value});
+        // this.setState({[e.target.name]: e.target.value}, this.buscaPecas);
     }
     
     adicionarCarros = () => {
@@ -49,6 +60,7 @@ class Carro extends Component {
           <option disabled value=""> --- Selecione seu carro --- </option>
             {this.adicionarCarros()}
         </select>
+        <button className="button-cadastro confirmar-carro" onClick={this.confirmarCarro}>Confirmar carro</button>
       </div>
     );
   }
