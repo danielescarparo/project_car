@@ -12,17 +12,6 @@
     flex-wrap: wrap;
 }
 
-.botao-troca{
-    padding: 4px 20px;
-    color: #fff;
-    background-color: #0e022f;
-    /* border-color: #122b40; */
-    border: 1px solid transparent;
-    border-radius: 4px;
-    margin-top: 10px;
-    width: 100%;
-}
-
 .alerta{
     color: #f00;
     margin-right: 10px;

@@ -4,11 +4,17 @@ import './Pecas.css';
 
 class Pecas extends Component {
   state = {
-
+    listaPecas: []
   };
 
   componentDidMount(){
-
+    axios.get(`http://private-0a4c11-projectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas`)
+    .then((response) => {
+      this.setState({ listaPecas: response.data });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   exibeRetangulos = () => {
@@ -22,7 +28,6 @@ class Pecas extends Component {
         <div>{`Peça: ${this.state.listaPecas[index].nome}`}</div>
         <div>{`Vida útil: ${this.state.listaPecas[index].km} km`}</div>
         <div>{`Km atual: ${this.state.listaPecas[index].km_atual} km`}</div>
-        <button className="botao-troca">Troquei peça</button>
       </div>)
       }else{
         copiaListaPecas.push(
@@ -34,19 +39,16 @@ class Pecas extends Component {
               <i className="alerta fas fa-exclamation-triangle fa-2x"></i> 
               <div>Precisa ser trocada</div>
             </div>
-            <button className="botao-troca">Troquei peça</button>
           </div>)
       } 
-      }
     }
+
+    return copiaListaPecas;
+  }
+
   render() {
     return (
-      <div>        
-        <div className="titulo-pecas">Selecione seu carro</div>
-        <select defaultValue="" name="carroSelecionado" onChange={this.recebeDado} required={true}>
-          <option disabled value=""> --- Selecione seu carro --- </option>
-            {this.adicionarCarros()}
-        </select>        
+      <div>
         <div className="titulo-pecas">Informações das peças</div> 
         <div className="group-pecas">{this.exibeRetangulos()}</div>
       </div>

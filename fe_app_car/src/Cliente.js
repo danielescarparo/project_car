@@ -58,7 +58,7 @@ class Cliente extends Component {
         mesesFluido : `${this.state.mesesFluido}`,
         mesesAditivo : `${this.state.mesesAditivo}`
     }).then((response) => {
-        this.props.history.push("/pecas");
+        this.props.history.push(`/carros/${this.props.match.params.id}/pecas`);
       })
       .catch((error) => {
         console.log(error);
