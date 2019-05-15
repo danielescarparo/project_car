@@ -12,12 +12,25 @@
     flex-wrap: wrap;
 }
 
-.alerta{
+.alerta-red{
     color: #f00;
     margin-right: 10px;
 }
 
-.fundo-aviso{
+.alerta-yellow{
+    color: #ff9100;
+    margin-right: 10px;
+}
+.fundo-aviso-yellow{
+    margin-top: 5px;
+    justify-content: center;
+    display: flex;
+    background: #e6ea69;
+    padding: 3px;
+    border-radius: 4px;
+}
+
+.fundo-aviso-red{
     margin-top: 5px;
     justify-content: center;
     display: flex;
