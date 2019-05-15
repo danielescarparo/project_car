@@ -67,9 +67,10 @@ class Cliente extends Component {
 
   preenchimentoPorcentagem = () => {
     const elementos = [];
+    const nomePecas = ["mmPneu", "mmDisco", "mmPastilha", "mesesFluido", "mesesAditivo"];
 
     for(let index in this.state.carro.pecas){
-      elementos.push(<div className="limite"><div key={this.state.carro.pecas[index].id} className="preenchido" style={{ width: `${this.state.carro.pecas[index].state}%` }}>{`${this.state.carro.pecas[index].state}%`}</div></div>);
+      elementos.push(<div><div className="texto-cadastro">{`${this.state.carro.pecas[index].nome}`}</div><input className="input-estilo" name={`${nomePecas[index]}`} onChange={this.recebeDado} required={true} placeholder={`${this.state.carro.pecas[index].descricao}`}></input><div className="limite"><div key={this.state.carro.pecas[index].id} className="preenchido" style={{ width: `${this.state.carro.pecas[index].state}%`}}>{`${this.state.carro.pecas[index].state}%`}</div></div></div>);
     }
 
     return elementos;
@@ -81,27 +82,17 @@ class Cliente extends Component {
       <div className="dois-blocos">
       <form className="html-login" onSubmit={this.submeterDados}>        
         <div className="margem-cadastro">
-        <div className="titulo-pecas">Entre com as informações abaixo</div> 
-          <div className="dados">
-            <div className="texto-cadastro">Quilometragem</div>
-            <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} required={true}></input>
-            <div className="texto-cadastro">Via</div>
-            <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} required={true} className="selectVia">
-                <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
-                    {this.adicionarVia()}
-            </select>
-            <div className="texto-cadastro">Pneu - Profundidade em mm</div>
-            <input className="input-estilo" name="mmPneu" onChange={this.recebeDado} required={true}></input>            
-            {this.preenchimentoPorcentagem()}
-            <div className="texto-cadastro">Disco de freio - Espessura em mm</div>
-            <input className="input-estilo" type="text" name="mmDisco" onChange={this.recebeDado} required={true}></input>
-            <div className="texto-cadastro">Pastilha de freio - Espessura em mm</div>
-            <input className="input-estilo" type="text" name="mmPastilha" onChange={this.recebeDado} required={true}></input>
-            <div className="texto-cadastro">Fluido de freio - Meses</div>
-            <input className="input-estilo" type="text" name="mesesFluido" onChange={this.recebeDado} required={true}></input>
-            <div className="texto-cadastro">Aditivo de radiador - Meses</div>
-            <input className="input-estilo" type="text" name="mesesAditivo" onChange={this.recebeDado} required={true}></input>
-            <button className="button-cadastro" type="submit">Submeter</button>
+          <div className="titulo-pecas">Entre com as informações abaixo</div> 
+            <div className="dados">
+              <div className="texto-cadastro">Quilometragem</div>
+              <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} required={true}></input>
+              <div className="texto-cadastro">Via</div>
+              <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} required={true} className="selectVia">
+                  <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
+                      {this.adicionarVia()}
+              </select>
+              {this.preenchimentoPorcentagem()}
+              <button className="button-cadastro" type="submit">Submeter</button>
           </div>            
         </div>
       </form>
