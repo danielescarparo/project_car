@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import './Cliente.css';
+import ModalWarning from './ModalWarning'
 
 class Cliente extends Component {
   state = {
@@ -12,7 +13,8 @@ class Cliente extends Component {
     mmPastilha : "",
     mesesFluido : "",
     mesesAditivo : "",
-    carro : {}
+    carro : {},
+    activeModalWarning: false
   };
 
   componentDidMount(){
@@ -28,8 +30,8 @@ class Cliente extends Component {
     
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
     .then((response) => {
-        console.log(response.data);
         this.setState({ carro : response.data });
+        this.verificaModalWarning(response.data);
     })
     .catch((error) => {
       console.log(error);
@@ -76,27 +78,41 @@ class Cliente extends Component {
     return elementos;
   }
 
+  alteraModalWarning = () => {
+    this.setState({ activeModalWarning: false });
+}
+
+  verificaModalWarning = (carro) => {
+    console.log("carro:", carro);
+    if (carro.stateModal === "warning") {
+        this.setState({ activeModalWarning: true });
+    }
+  }
+
   render() {
     console.log(this.state.carro);
     return (
-      <div className="dois-blocos">
-      <form className="html-login" onSubmit={this.submeterDados}>        
-        <div className="margem-cadastro">
-          <div className="titulo-pecas">Entre com as informações abaixo</div> 
-            <div className="dados">
-              <div className="texto-cadastro">Quilometragem</div>
-              <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} required={true}></input>
-              <div className="texto-cadastro">Via</div>
-              <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} required={true} className="selectVia">
-                  <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
-                      {this.adicionarVia()}
-              </select>
-              {this.preenchimentoPorcentagem()}
-              <button className="button-cadastro" type="submit">Submeter</button>
-          </div>            
+      <Fragment>
+        <ModalWarning active={this.state.activeModalWarning} alteraModal={this.alteraModalWarning}/>
+        <div className="dois-blocos">
+        <form className="html-login" onSubmit={this.submeterDados}>        
+          <div className="margem-cadastro">
+            <div className="titulo-pecas">Entre com as informações abaixo</div> 
+              <div className="dados">
+                <div className="texto-cadastro">Quilometragem</div>
+                <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} required={true}></input>
+                <div className="texto-cadastro">Via</div>
+                <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} required={true} className="selectVia">
+                    <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
+                        {this.adicionarVia()}
+                </select>
+                {this.preenchimentoPorcentagem()}
+                <button className="button-cadastro" type="submit">Submeter</button>
+            </div>            
+          </div>
+        </form>
         </div>
-      </form>
-      </div>
+      </Fragment>
     );
   }
 }

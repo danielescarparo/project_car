@@ -1,0 +1,9 @@
+.ui.modal .header.icone-exclamacao{
+    color: #ffcc00;
+    display: flex;
+    justify-content: center;
+}
+
+.ui.modal .content.texto-aviso{
+    font-size: 0.9em;
+}
