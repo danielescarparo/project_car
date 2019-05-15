@@ -1,5 +1,5 @@
-.ui.modal .header.icone-exclamacao-warning{
-    color: #ffcc00;
+.ui.modal .header.icone-exclamacao-alert{
+    color: red;
     display: flex;
     justify-content: center;
 }

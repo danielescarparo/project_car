@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import './Cliente.css';
 import ModalWarning from './ModalWarning'
+import ModalAlert from './ModalAlert'
 
 class Cliente extends Component {
   state = {
@@ -14,7 +15,8 @@ class Cliente extends Component {
     mesesFluido : "",
     mesesAditivo : "",
     carro : {},
-    activeModalWarning: false
+    activeModalWarning: false,
+    activeModalAlert: false
   };
 
   componentDidMount(){
@@ -31,7 +33,7 @@ class Cliente extends Component {
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
     .then((response) => {
         this.setState({ carro : response.data });
-        this.verificaModalWarning(response.data);
+        this.verificaModal(response.data);
     })
     .catch((error) => {
       console.log(error);
@@ -80,12 +82,19 @@ class Cliente extends Component {
 
   alteraModalWarning = () => {
     this.setState({ activeModalWarning: false });
-}
+  }
 
-  verificaModalWarning = (carro) => {
+  alteraModalAlert = () => {
+    this.setState({ activeModalAlert: false });
+  }
+
+  verificaModal = (carro) => {
     console.log("carro:", carro);
     if (carro.stateModal === "warning") {
         this.setState({ activeModalWarning: true });
+    }
+    if (carro.stateModal === "alert") {
+      this.setState({ activeModalAlert: true });
     }
   }
 
@@ -93,7 +102,8 @@ class Cliente extends Component {
     console.log(this.state.carro);
     return (
       <Fragment>
-        <ModalWarning active={this.state.activeModalWarning} alteraModal={this.alteraModalWarning}/>
+        <ModalWarning active={this.state.activeModalWarning} alteraModalWarning={this.alteraModalWarning}/>
+        <ModalAlert active={this.state.activeModalAlert} alteraModalAlert={this.alteraModalAlert}/>
         <div className="dois-blocos">
         <form className="html-login" onSubmit={this.submeterDados}>        
           <div className="margem-cadastro">
