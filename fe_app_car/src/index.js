@@ -12,10 +12,9 @@ ReactDOM.render(
     <div className="titulo">Peças de carros para manutenção</div>
   <Switch>      
     <Route exact path="/" component={Carro}/>
-    <Route exact path="/carros/:id" component={Cliente}/>
-    <Route exact path="/mecanico" component={Mecanico}/>
+    <Route exact path="/carros/:id" component={Cliente}/>  
     <Route exact path="/carros/:id/pecas" component={Pecas}/>
-    {/* <Route exact path="/carros/:banana" component={Peca}/> */}
+    <Route exact path="/carros/:id/mecanico" component={Mecanico}/>
   </Switch> 
 </BrowserRouter>,
   document.getElementById('root')
