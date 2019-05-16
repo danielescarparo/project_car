@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Cliente.css';
 import ModalWarning from './ModalWarning'
 import ModalAlert from './ModalAlert'
+import ModalConfirm from './ModalConfirm'
 
 class Cliente extends Component {
   state = {
@@ -104,6 +105,7 @@ class Cliente extends Component {
       <Fragment>
         <ModalWarning active={this.state.activeModalWarning} alteraModalWarning={this.alteraModalWarning}/>
         <ModalAlert active={this.state.activeModalAlert} alteraModalAlert={this.alteraModalAlert}/>
+        {/* <ModalConfirm active={this.state.activeModalAlert} alteraModalAlert={this.alteraModalAlert}/> */}
         <div className="dois-blocos">
         <form className="html-login" onSubmit={this.submeterDados}>        
           <div className="margem-cadastro">

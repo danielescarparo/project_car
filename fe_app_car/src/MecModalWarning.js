@@ -11,7 +11,7 @@ class MecModalWarning extends Component {
         <Modal size='mini' open={active} onClose={(this.props.alteraModalWarningMec)}>
           <Modal.Header className="icone-exclamacao-warning"><Icon name='exclamation triangle' size='massive'/></Modal.Header>
           <Modal.Content className="texto-aviso">
-            <p>Existe alguma peça que logo deverá ser REVISADA. Clique no botão "mais informações" para mais detalhes.</p>
+            <p>Existe alguma(s) peça(s) do seu cliente que logo precisará ser REVISADA.</p>
           </Modal.Content>
           <Modal.Actions>
             <Button positive content='OK' onClick={(this.props.alteraModalWarningMec)}/>
