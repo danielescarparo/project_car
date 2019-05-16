@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Select } from 'semantic-ui-react'
 import axios from 'axios';
 import './Carro.css';
 
@@ -41,14 +42,22 @@ class Carro extends Component {
         });
     }
 
-    recebeDado = (e) => {
-        this.setState({[e.target.name]: e.target.value});
+    recebeDado = (e, data) => {
+      console.log(e, data);
+      console.log(e.target.name);
+        this.setState({[data.name]: data.value});
         // this.setState({[e.target.name]: e.target.value}, this.buscaPecas);
     }
     
     adicionarCarros = () => {
         return this.state.listaCarros.map((carro) => {
-            return <option key={carro.id} className="carros" value={carro.id}>{`Marca: ${carro.marca}, Modelo: ${carro.modelo}, Versão: ${carro.versao}, Ano: ${carro.ano}, Motor: ${carro.motor}`} </option>
+            return {
+              key: carro.id,
+              value: carro.id,
+              text: `Marca: ${carro.marca}, Modelo: ${carro.modelo}, Versão: ${carro.versao}, Ano: ${carro.ano}, Motor: ${carro.motor}`
+            } 
+            
+            // <option key={carro.id} className="carros" value={carro.id}>{`Marca: ${carro.marca}, Modelo: ${carro.modelo}, Versão: ${carro.versao}, Ano: ${carro.ano}, Motor: ${carro.motor}`} </option>
         });
     }
 
@@ -56,10 +65,11 @@ class Carro extends Component {
     return (
         <div className="carro-group">        
         <div className="titulo-pecas">Selecione seu carro</div>
-        <select className="select-carros" defaultValue="" name="carroSelecionado" onChange={this.recebeDado} required={true}>
+        <Select placeholder='Selecione seu carro' options={this.adicionarCarros()} name="carroSelecionado" onChange={this.recebeDado} required={true}/>
+        {/* <select className="select-carros" defaultValue="" name="carroSelecionado" onChange={this.recebeDado} required={true}>
           <option disabled value=""> --- Selecione seu carro --- </option>
             {this.adicionarCarros()}
-        </select>
+        </select> */}
         <button className="button-cadastro confirmar-carro" onClick={this.confirmarCarro}>Confirmar carro</button>
       </div>
     );
