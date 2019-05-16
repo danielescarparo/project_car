@@ -5,11 +5,13 @@ import ModalWarning from './ModalWarning'
 import ModalAlert from './ModalAlert'
 import ModalConfirm from './ModalConfirm'
 
+let time;
+
 class Cliente extends Component {
   state = {
     listaTipoSelect : [],
     kmCadastro : "",
-    viaSelecionada : 0,
+    viaSelecionada : "",
     mmPneu : "",
     mmDisco : "",
     mmPastilha : "",
@@ -23,6 +25,8 @@ class Cliente extends Component {
   };
 
   componentDidMount(){
+    time = setInterval(this.atualizarCarro, 5000);
+
     //busca no backend os tipos de vias
     axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/corrida/meta')
     .then((response) => {
@@ -33,14 +37,7 @@ class Cliente extends Component {
       console.log(error);
     });
     
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
-    .then((response) => {
-        this.setState({ carro : response.data });
-        this.verificaModal(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    this.atualizarCarro();
 
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/trocas`)
     .then((response) => {
@@ -61,6 +58,17 @@ class Cliente extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  atualizarCarro = () => {
+    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
+    .then((response) => {
+        this.setState({ carro : response.data });
+        this.verificaModal(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   submeterDados = (e) => {
     e.preventDefault();
     console.log(e.target);
@@ -73,7 +81,8 @@ class Cliente extends Component {
         mesesFluido : `${this.state.mesesFluido}`,
         mesesAditivo : `${this.state.mesesAditivo}`
     }).then((response) => {
-        this.props.history.push(`/carros/${this.props.match.params.id}/pecas`);
+        this.setState({kmCadastro : "", viaSelecionada : "", mmPneu : "", mmDisco : "", mmPastilha : "", mesesFluido : "", mesesAditivo : ""})
+        this.props.history.push(`/carros/${this.props.match.params.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -85,7 +94,7 @@ class Cliente extends Component {
     const nomePecas = ["mmPneu", "mmDisco", "mmPastilha", "mesesFluido", "mesesAditivo"];
 
     for(let index in this.state.carro.pecas){
-      elementos.push(<div><div className="texto-cadastro">{`${this.state.carro.pecas[index].nome}`}</div><input className="input-estilo" name={`${nomePecas[index]}`} onChange={this.recebeDado} required={true} placeholder={`${this.state.carro.pecas[index].descricao}`}></input><div className="limite"><div key={this.state.carro.pecas[index].id} className="preenchido" style={{ width: `${this.state.carro.pecas[index].state}%`}}>{`${this.state.carro.pecas[index].state}%`}</div></div></div>);
+      elementos.push(<div key={this.state.carro.pecas[index].id}><div className="texto-cadastro">{`${this.state.carro.pecas[index].nome}`}</div><input className="input-estilo" name={`${nomePecas[index]}`} onChange={this.recebeDado} value={this.state[nomePecas[index]]} required={true} placeholder={`${this.state.carro.pecas[index].descricao}`}></input><div className="limite"><div className="preenchido" style={{ width: `${this.state.carro.pecas[index].state}%`}}>{`${this.state.carro.pecas[index].state}%`}</div></div></div>);
     }
 
     return elementos;
@@ -93,27 +102,37 @@ class Cliente extends Component {
 
   alteraModalWarning = () => {
     this.setState({ activeModalWarning: false });
+    time = setInterval(this.atualizarCarro, 5000);
   }
 
   alteraModalAlert = () => {
     this.setState({ activeModalAlert: false });
+    time = setInterval(this.atualizarCarro, 5000);
   }
 
   alteraModalConfirm = () => {
     this.setState({ activeModalConfirm: false });
+    time = setInterval(this.atualizarCarro, 5000);
   }
 
   verificaModal = (carro) => {
     console.log("carro:", carro);
     if (carro.stateModal === "warning") {
         this.setState({ activeModalWarning: true });
+        clearInterval(time);
     }
     if ((carro.stateModal === "alert") && (carro.stateConfirm === false)) {
       this.setState({ activeModalAlert: true });
+      clearInterval(time);
     }
     if ((carro.stateModal === "alert") && (carro.stateConfirm === true)) {
       this.setState({ activeModalConfirm: true });
+      clearInterval(time);
     }
+  }
+
+  chamaPecas = () => {
+    this.props.history.push(`/carros/${this.props.match.params.id}/pecas`);
   }
 
   render() {
@@ -128,17 +147,18 @@ class Cliente extends Component {
         <div className="dois-blocos">
         <form className="html-login" onSubmit={this.submeterDados}>        
           <div className="margem-cadastro">
-            <div className="titulo-pecas">Entre com as informações abaixo</div> 
+            <div className="titulo-pecas">Entre com as informações abaixo</div>            
               <div className="dados">
                 <div className="texto-cadastro">Quilometragem</div>
-                <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} required={true}></input>
+                <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} value={this.state.kmCadastro} required={true}></input>
                 <div className="texto-cadastro">Via</div>
-                <select defaultValue="" name="viaSelecionada" onChange={this.recebeDado} required={true} className="selectVia">
+                <select name="viaSelecionada" onChange={this.recebeDado} value={this.state.viaSelecionada} required={true} className="selectVia">
                     <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
                         {this.adicionarVia()}
                 </select>
                 {this.preenchimentoPorcentagem()}
                 <button className="button-cadastro" type="submit">Submeter</button>
+                <button className="button-cadastro outras-prop-botao" onClick={this.chamaPecas}><i className="fas fa-plus"></i> Informações</button>
             </div>            
           </div>
         </form>

@@ -64,3 +64,9 @@
   color: #383535;
   text-align: center;
 }
+.outras-prop-botao{
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+  align-items: center;
+}

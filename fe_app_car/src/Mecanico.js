@@ -4,6 +4,8 @@ import './Pecas.css';
 import MecModalWarning from './MecModalWarning'
 import MecModalAlert from './MecModalAlert'
 
+let time;
+
 class Pecas extends Component {
   state = {
     listaPecas: [],
@@ -12,6 +14,8 @@ class Pecas extends Component {
   };
 
   componentDidMount(){
+    time = setInterval(this.getStatusModal, 5000);
+
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas`)
     .then((response) => {
       this.setState({ listaPecas: response.data });
@@ -19,7 +23,7 @@ class Pecas extends Component {
     })
     .catch((error) => {
       console.log(error);
-    });
+    });    
   }
 
   getStatusModal = () => {
@@ -35,19 +39,23 @@ class Pecas extends Component {
 
   alteraModalWarningMec = () => {
     this.setState({ activeModalWarningMec: false });
+    time = setInterval(this.getStatusModal, 5000);
   }
 
   alteraModalAlertMec = () => {
     this.setState({ activeModalAlertMec: false });
+    time = setInterval(this.getStatusModal, 5000);
   }
 
   verificaModal = (carro) => {
     console.log("carro:", carro);
     if (carro.stateModal === "warning") {
         this.setState({ activeModalWarningMec: true });
+        clearInterval(time);
     }
     if (carro.stateModal === "alert") {
       this.setState({ activeModalAlertMec: true });
+      clearInterval(time);
     }
   }
 
@@ -101,7 +109,7 @@ class Pecas extends Component {
     return (
       <Fragment>
         <MecModalWarning active={this.state.activeModalWarningMec} alteraModalWarningMec={this.alteraModalWarningMec}/>
-        <MecModalAlert active={this.state.activeModalAlertMec} alteraModalAlertMec={this.alteraModalAlertMec} listaPecasAlert = {this.state.listaPecas} match={this.props.match}/>
+        <MecModalAlert active={this.state.activeModalAlertMec} alteraModalAlertMec={this.alteraModalAlertMec} listaPecasAlert={this.state.listaPecas} match={this.props.match}/>
         <div>
           <div className="titulo-pecas">Informações das peças do seu cliente</div> 
           <div className="group-pecas">{this.exibeRetangulos()}</div>

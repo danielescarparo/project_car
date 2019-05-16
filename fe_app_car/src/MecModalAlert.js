@@ -19,7 +19,7 @@ class MecModalAlert extends Component {
         for(let index in this.props.listaPecasAlert){
             if(this.props.listaPecasAlert[index].alerta === "alert"){
                 elementos.push(                    
-                    <Checkbox label={`${this.props.listaPecasAlert[index].nome}`} onClick={() => this.selecionarItem(index)}/>                    
+                    <Checkbox key={this.props.listaPecasAlert[index].id} label={`${this.props.listaPecasAlert[index].nome}`} onClick={() => this.selecionarItem(index)}/>                    
                 )
             }    
         }

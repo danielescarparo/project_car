@@ -12,14 +12,14 @@ class ModalConfirm extends Component {
         const elementos = [];
         for(let index in this.props.listaTrocas){
             elementos.push(                    
-                <div>{`${this.props.listaTrocas[index].nome}`}</div>                    
+                <div key={this.props.listaTrocas[index].id}>{`${this.props.listaTrocas[index].nome}`}</div>                    
             )  
         }
         return elementos;
     }
 
     funcao = (estadoAtual) => {
-        axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas/trocas`, {
+        axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas/trocadas`, {
             estado : estadoAtual
         }).then((response) => {
             //troca feita com sucesso
