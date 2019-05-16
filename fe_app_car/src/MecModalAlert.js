@@ -27,16 +27,16 @@ class MecModalAlert extends Component {
     }
 
     enviaDadosSelecionados = () => {
-        axios.post('http://private-31df06-mockprojectcar.apiary-mock.com/selecionados', {
-            listaSelecionados : `${this.state.selecionados}`
-        }).then((response) => {
-            //modal finaliza usuario
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      
-        this.props.alteraModalAlertMec();
+      axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas/selecionadas`, {
+          listaSelecionados : `${this.state.selecionados}`
+      }).then((response) => {
+          //as pecas do mecanico foram enviadas com sucesso
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    
+      this.props.alteraModalAlertMec();
     }
 
     render() {

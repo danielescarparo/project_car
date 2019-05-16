@@ -99,9 +99,9 @@ class Pecas extends Component {
 
   render() {
     return (
-      <Fragment>Informações das peças do seu cliente
+      <Fragment>
         <MecModalWarning active={this.state.activeModalWarningMec} alteraModalWarningMec={this.alteraModalWarningMec}/>
-        <MecModalAlert active={this.state.activeModalAlertMec} alteraModalAlertMec={this.alteraModalAlertMec} listaPecasAlert = {this.state.listaPecas}/>
+        <MecModalAlert active={this.state.activeModalAlertMec} alteraModalAlertMec={this.alteraModalAlertMec} listaPecasAlert = {this.state.listaPecas} match={this.props.match}/>
         <div>
           <div className="titulo-pecas">Informações das peças do seu cliente</div> 
           <div className="group-pecas">{this.exibeRetangulos()}</div>

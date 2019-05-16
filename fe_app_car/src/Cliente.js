@@ -17,7 +17,9 @@ class Cliente extends Component {
     mesesAditivo : "",
     carro : {},
     activeModalWarning: false,
-    activeModalAlert: false
+    activeModalAlert: false,
+    activeModalConfirm: false,
+    listaTrocas: []
   };
 
   componentDidMount(){
@@ -38,6 +40,14 @@ class Cliente extends Component {
     })
     .catch((error) => {
       console.log(error);
+    });
+
+    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/trocas`)
+    .then((response) => {
+        this.setState({ listaTrocas : response.data });
+})
+    .catch((error) => {
+        console.log(error);
     });
   }
 
@@ -89,23 +99,32 @@ class Cliente extends Component {
     this.setState({ activeModalAlert: false });
   }
 
+  alteraModalConfirm = () => {
+    this.setState({ activeModalConfirm: false });
+  }
+
   verificaModal = (carro) => {
     console.log("carro:", carro);
     if (carro.stateModal === "warning") {
         this.setState({ activeModalWarning: true });
     }
-    if (carro.stateModal === "alert") {
+    if ((carro.stateModal === "alert") && (carro.stateConfirm === false)) {
       this.setState({ activeModalAlert: true });
+    }
+    if ((carro.stateModal === "alert") && (carro.stateConfirm === true)) {
+      this.setState({ activeModalConfirm: true });
     }
   }
 
   render() {
     console.log(this.state.carro);
+    const { listaTrocas } = this.state;
+
     return (
       <Fragment>
         <ModalWarning active={this.state.activeModalWarning} alteraModalWarning={this.alteraModalWarning}/>
         <ModalAlert active={this.state.activeModalAlert} alteraModalAlert={this.alteraModalAlert}/>
-        {/* <ModalConfirm active={this.state.activeModalAlert} alteraModalAlert={this.alteraModalAlert}/> */}
+        <ModalConfirm active={this.state.activeModalConfirm} alteraModalConfirm={this.alteraModalConfirm} listaTrocas={listaTrocas} match={this.props.match}/>
         <div className="dois-blocos">
         <form className="html-login" onSubmit={this.submeterDados}>        
           <div className="margem-cadastro">
