@@ -9,56 +9,35 @@ public class User {
 	@Id
     private String id;
     private String name;
-    private String userName;
-    private String email;
-    private String password;
-//    private Automobile automobile;
-    
-	public User(String name, String userName, String email, String password) {
-		super();
+    private Automobile automobile;      
+
+	public User(String name, Automobile automobile) {
 		this.name = name;
-		this.userName = userName;
-		this.email = email;
-		this.password = password;
+		this.automobile = automobile;
 	}
 
+	public User(String name) {
+		this.name = name;
+	}
+    
 	public String getId() {
 		return id;
 	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getUserName() {
-		return userName;
+	public Automobile getAutomobile() {
+		return automobile;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAutomobile(Automobile automobile) {
+		this.automobile = automobile;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }
