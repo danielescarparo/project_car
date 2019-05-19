@@ -1,11 +1,6 @@
 package carProject.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "race")
 public class Race {
-    @Id
     private String id;
     private Double kilometer;
     private String route;

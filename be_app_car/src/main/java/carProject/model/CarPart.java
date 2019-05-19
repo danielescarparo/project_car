@@ -10,19 +10,21 @@ public class CarPart {
     private String name;
     private Route route;
     private Double kmLifespan;
-    private Double kmPresent;    
+    private Double kmPresent;  
+    private String stateModal;    
     
-	public CarPart(String name, Route route, Double kmLifespan, Double kmPresent) {
+	public CarPart(String name, Route route, Double kmLifespan, Double kmPresent, String stateModal) {
 		this.name = name;
 		this.route = route;
 		this.kmLifespan = kmLifespan;
 		this.kmPresent = kmPresent;
+		this.stateModal = stateModal;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -53,5 +55,13 @@ public class CarPart {
 	
 	public void setKmPresent(Double kmPresent) {
 		this.kmPresent = kmPresent;
-	}    
+	}
+	
+	public String getStateModal() {
+		return stateModal;
+	}
+	
+	public void setStateModal(String stateModal) {
+		this.stateModal = stateModal;
+	}	    
 }

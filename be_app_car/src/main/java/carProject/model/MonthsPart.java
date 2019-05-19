@@ -7,13 +7,13 @@ public class MonthsPart extends CarPart{
 	private String monthsAccepted;
 	private String monthsPresent;
 	
-	public MonthsPart(String name, Route route, Double kmLifespan, Double kmPresent, String monthsAccepted,
-			String monthsPresent) {
-		super(name, route, kmLifespan, kmPresent);
+	public MonthsPart(String name, Route route, Double kmLifespan, Double kmPresent, String stateModal,
+			String monthsAccepted, String monthsPresent) {
+		super(name, route, kmLifespan, kmPresent, stateModal);
 		this.monthsAccepted = monthsAccepted;
 		this.monthsPresent = monthsPresent;
 	}
-	
+
 	public String getMonthsAccepted() {
 		return monthsAccepted;
 	}

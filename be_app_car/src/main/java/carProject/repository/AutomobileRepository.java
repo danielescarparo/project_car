@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import carProject.model.User;
 
 @Repository
-public interface UsersRepository extends MongoRepository<User, String>{
+public interface AutomobileRepository extends MongoRepository<Automobile, String>{
 
 }
