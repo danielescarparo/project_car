@@ -8,6 +8,7 @@ import carProject.services.AutomobileService;
 import carProject.model.Automobile;
 import carProject.model.CarPart;
 
+import java.util.HashMap;
 import java.util.List;
 
 /*Automobile, recieves the http request to control car's data*/
@@ -26,7 +27,7 @@ public class AutomobileController {
     // Return all cars in MongoDB
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
-    public List<Automobile> findAll(){  // throws AuthorNotFoundException
+    public List<Automobile> findAll(){  
         return automobileService.findAll();
     }
     
@@ -46,15 +47,15 @@ public class AutomobileController {
     // Returns modal information that will be displayed
     @RequestMapping(value = "/{id}/modal", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
-    public Automobile stateModal( //VER RETORNO
+    public HashMap<String, String> globalDetritionState( 
             @PathVariable("id") String id) {
-        return automobileService.stateModal(id);
+        return automobileService.globalDetritionState(id);
     }
 
     // Returns list of parts that the mechanic wants to change
     @RequestMapping(value = "/{id}/trocas", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
-    public Automobile findPartsList( //VER RETORNO
+    public Automobile findPartsList( 
             @PathVariable("id") String id) {
         return automobileService.findPartsList(id);
     }
@@ -76,7 +77,7 @@ public class AutomobileController {
     @ResponseStatus(value=HttpStatus.OK)
     public void acceptanceExchangeParts( //VER RETORNO
             @PathVariable("id") String id, 
-            @RequestParam("estado") boolean state) {
+            @RequestBody boolean state) {
         automobileService.acceptanceExchangeParts(id, state);
     }
     
@@ -98,7 +99,7 @@ public class AutomobileController {
     @ResponseStatus(value=HttpStatus.OK)
     public void allMechanicPartsExchanges( //VER RETORNO. Envia uma lista de id
             @PathVariable("id") String id, 
-            @RequestParam("listaSelecionados") List<String> listaSelecionados) {
+            @RequestBody List<String> listaSelecionados) {
         automobileService.allMechanicPartsExchanges(id, listaSelecionados);
     }   
 }

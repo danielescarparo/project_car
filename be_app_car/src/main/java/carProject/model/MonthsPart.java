@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class MonthsPart extends CarPart{
 	private String monthsAccepted;
 	private String monthsPresent;
-	
-	public MonthsPart(String name, Route route, Double kmLifespan, Double kmPresent, String stateModal,
+
+	public MonthsPart(String name, Route route, Double kmLifespan, Double kmPresent, DetritionState stateModal,
 			String monthsAccepted, String monthsPresent) {
 		super(name, route, kmLifespan, kmPresent, stateModal);
 		this.monthsAccepted = monthsAccepted;

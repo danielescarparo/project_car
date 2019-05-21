@@ -6,9 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class MillimeterPart extends CarPart{
 	private String millimeterAccepted;
 	private String millimeterPresent;
-	
 
-	public MillimeterPart(String name, Route route, Double kmLifespan, Double kmPresent, String stateModal,
+	public MillimeterPart(String name, Route route, Double kmLifespan, Double kmPresent, DetritionState stateModal,
 			String millimeterAccepted, String millimeterPresent) {
 		super(name, route, kmLifespan, kmPresent, stateModal);
 		this.millimeterAccepted = millimeterAccepted;
