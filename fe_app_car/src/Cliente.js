@@ -18,6 +18,7 @@ class Cliente extends Component {
     mesesFluido : "",
     mesesAditivo : "",
     carro : {},
+    stateCarro : {},
     activeModalWarning: false,
     activeModalAlert: false,
     activeModalConfirm: false,
@@ -25,7 +26,7 @@ class Cliente extends Component {
   };
 
   componentDidMount(){
-    time = setInterval(this.atualizarCarro, 5000);
+    time = setInterval(this.atualizarModal, 5000);
 
     //busca no backend os tipos de vias
     axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/corrida/meta')
@@ -39,10 +40,12 @@ class Cliente extends Component {
     
     this.atualizarCarro();
 
+    this.atualizarModal();
+
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/trocas`)
     .then((response) => {
         this.setState({ listaTrocas : response.data });
-})
+    })
     .catch((error) => {
         console.log(error);
     });
@@ -58,11 +61,21 @@ class Cliente extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  atualizarModal = () => {
+    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/modal`)
+    .then((response) => {
+        this.setState({ stateCarro : response.data });
+        this.verificaModal(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   atualizarCarro = () => {
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
     .then((response) => {
         this.setState({ carro : response.data });
-        this.verificaModal(response.data);
     })
     .catch((error) => {
       console.log(error);
@@ -102,30 +115,30 @@ class Cliente extends Component {
 
   alteraModalWarning = () => {
     this.setState({ activeModalWarning: false });
-    time = setInterval(this.atualizarCarro, 5000);
+    time = setInterval(this.atualizarModal, 5000);
   }
 
   alteraModalAlert = () => {
     this.setState({ activeModalAlert: false });
-    time = setInterval(this.atualizarCarro, 5000);
+    time = setInterval(this.atualizarModal, 5000);
   }
 
   alteraModalConfirm = () => {
     this.setState({ activeModalConfirm: false });
-    time = setInterval(this.atualizarCarro, 5000);
+    time = setInterval(this.atualizarModal, 5000);
   }
 
-  verificaModal = (carro) => {
-    console.log("carro:", carro);
-    if (carro.stateModal === "warning") {
+  verificaModal = (stateCarro) => {
+    console.log("Estado:", stateCarro);
+    if (stateCarro.stateModal === "warning") {
         this.setState({ activeModalWarning: true });
         clearInterval(time);
     }
-    if ((carro.stateModal === "alert") && (carro.stateConfirm === false)) {
+    if ((stateCarro.stateModal === "alert") && (stateCarro.stateConfirm === false)) {
       this.setState({ activeModalAlert: true });
       clearInterval(time);
     }
-    if ((carro.stateModal === "alert") && (carro.stateConfirm === true)) {
+    if ((stateCarro.stateModal === "alert") && (stateCarro.stateConfirm === true)) {
       this.setState({ activeModalConfirm: true });
       clearInterval(time);
     }
