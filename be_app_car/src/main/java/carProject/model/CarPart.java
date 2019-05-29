@@ -1,5 +1,7 @@
 package carProject.model;
 
+import java.util.HashMap;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,59 +13,158 @@ public class CarPart {
     private Route route;
     private Double kmLifespan;
     private Double kmPresent;  
-    private DetritionState stateModal;   
+    private DetritionState stateModal;
+    private PartType partType;
+    private int validity;
+    private int wear;
 
-
-	public CarPart(String name, Route route, Double kmLifespan, Double kmPresent,
-			DetritionState stateModal) {
+	public CarPart(String name, Route route, Double kmLifespan, Double kmPresent, DetritionState stateModal,
+			PartType partType, int validity, int wear) {
+		super();
 		this.name = name;
 		this.route = route;
 		this.kmLifespan = kmLifespan;
 		this.kmPresent = kmPresent;
 		this.stateModal = stateModal;
-	}
-
+		this.partType = partType;
+		this.validity = validity;
+		this.wear = wear;
+	} 
+	
 	public String getId() {
 		return id;
 	}
 
+
 	public String getName() {
 		return name;
 	}
-	
+
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+
+
 	public Route getRoute() {
 		return route;
 	}
-	
+
+
+
 	public void setRoute(Route route) {
 		this.route = route;
 	}
-	
+
+
+
 	public Double getKmLifespan() {
 		return kmLifespan;
 	}
-	
+
+
+
 	public void setKmLifespan(Double kmLifespan) {
 		this.kmLifespan = kmLifespan;
 	}
-	
+
+
+
 	public Double getKmPresent() {
 		return kmPresent;
 	}
-	
+
+
+
 	public void setKmPresent(Double kmPresent) {
 		this.kmPresent = kmPresent;
 	}
+
+
 
 	public DetritionState getStateModal() {
 		return stateModal;
 	}
 
+
+
 	public void setStateModal(DetritionState stateModal) {
 		this.stateModal = stateModal;
-	}    
+	}
+
+
+
+	public PartType getPartType() {
+		return partType;
+	}
+
+
+
+	public void setPartType(PartType partType) {
+		this.partType = partType;
+	}
+
+
+
+	public int getValidity() {
+		return validity;
+	}
+
+
+
+	public void setValidity(int validity) {
+		this.validity = validity;
+	}
+
+
+
+	public int getWear() {
+		return wear;
+	}
+
+
+
+	public void setWear(int wear) {
+		this.wear = wear;
+	}
+
+
+
+	public HashMap<String, Object> toMap(CarPart carPart){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("id", carPart.id);
+		map.put("name", carPart.name);
+		map.put("route", carPart.route);
+		map.put("kmLifespan", carPart.kmLifespan);
+		map.put("kmPresent", carPart.kmPresent);
+		map.put("stateModal", carPart.stateModal);
+		map.put("partType", carPart.partType);
+		map.put("validity", carPart.validity);
+		map.put("wear", carPart.wear);
+		
+		switch(partType) {
+			case DEPTH:
+				map.put("descricao", "Profundidade(mm)");
+				break;
+			case THICKNESS:
+				map.put("descricao", "Espessura(mm)");
+				break;
+			case MONTHS:
+				map.put("descricao", "Meses");
+				break;
+		}
+		
+		return map;
+		
+//	    HashMap<String, String> newMap = new HashMap<String, String>();
+//	    for (HashMap.Entry<String, Object> entry : map.entrySet()) {
+//	        newMap.put(entry.getKey(), (String) entry.getValue());
+//	    }
+//
+//	    return newMap;
+
+	}
 }
