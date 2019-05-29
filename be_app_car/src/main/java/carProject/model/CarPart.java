@@ -15,11 +15,11 @@ public class CarPart {
     private Double kmPresent;  
     private DetritionState stateModal;
     private PartType partType;
-    private int validity;
-    private int wear;
+    private float validity;
+    private float wear;
 
 	public CarPart(String name, Route route, Double kmLifespan, Double kmPresent, DetritionState stateModal,
-			PartType partType, int validity, int wear) {
+			PartType partType, float validity, float wear) {
 		super();
 		this.name = name;
 		this.route = route;
@@ -108,25 +108,25 @@ public class CarPart {
 
 
 
-	public int getValidity() {
+	public float getValidity() {
 		return validity;
 	}
 
 
 
-	public void setValidity(int validity) {
+	public void setValidity(float validity) {
 		this.validity = validity;
 	}
 
 
 
-	public int getWear() {
+	public float getWear() {
 		return wear;
 	}
 
 
 
-	public void setWear(int wear) {
+	public void setWear(float wear) {
 		this.wear = wear;
 	}
 
@@ -166,5 +166,25 @@ public class CarPart {
 //
 //	    return newMap;
 
+	}
+	
+	public void uptadeState() {
+		switch(partType) {
+		case DEPTH:
+		case THICKNESS:
+			if((kmPresent > kmLifespan * 0.8) || (wear < validity)){ //80%
+				stateModal = DetritionState.ALERT;
+			}else if((kmPresent > kmLifespan * 0.5) || (wear < (validity * 0.5) + validity)) { //50%
+				stateModal = DetritionState.WARNING;
+			}
+			break;
+		case MONTHS:
+			if((kmPresent > kmLifespan * 0.8) || (wear > validity)){ 
+				stateModal = DetritionState.ALERT;
+			}else if((kmPresent > kmLifespan * 0.5) || (wear > validity * 0.5)) { //50%
+				stateModal = DetritionState.WARNING;
+			}
+			break;		
+		}
 	}
 }

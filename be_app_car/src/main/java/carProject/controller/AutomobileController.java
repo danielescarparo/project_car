@@ -2,19 +2,17 @@ package carProject.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import aj.org.objectweb.asm.Handle;
 import carProject.services.AutomobileService;
 import carProject.model.Automobile;
 import carProject.model.CarPart;
+import carProject.model.Route;
+import carProject.model.Race;
 
-import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 
 /*Automobile, recieves the http request to control car's data*/
 @RestController
@@ -52,8 +50,21 @@ public class AutomobileController {
     
     /*Cliente.js*/
     
-    // axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/corrida/meta')
-    // axios.post('http://private-31df06-mockprojectcar.apiary-mock.com/sub'
+    // Returns /corrida/meta
+    @RequestMapping(value = "/rotas", method = RequestMethod.GET)
+    @ResponseStatus(value=HttpStatus.OK)
+    public List<Route> listRoute() {
+        return automobileService.listRoute();
+    }
+    
+    //  /sub
+    @RequestMapping(value = "/{id}/corrida", method = RequestMethod.POST)
+    @ResponseStatus(value=HttpStatus.OK)
+    public void sendRace(
+            @PathVariable("id") String id, 
+            @RequestBody Race race) {    
+    	automobileService.sendRace(id, race);
+    }
     
     // Returns car with details of its parts
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -62,6 +73,14 @@ public class AutomobileController {
             @PathVariable("id") String id) {
         return automobileService.findCar(id);
     }
+    
+    // Returns PORCENTAGEM
+    @RequestMapping(value = "/{id}/descricao", method = RequestMethod.GET)
+    @ResponseStatus(value=HttpStatus.OK)
+    public List<HashMap<String, Object>> percentage(
+            @PathVariable("id") String id) {
+        return automobileService.percentage(id);
+    }    
 	
     // Returns modal information that will be displayed
     @RequestMapping(value = "/{id}/modal", method = RequestMethod.GET)
@@ -92,7 +111,6 @@ public class AutomobileController {
     /*ModalConfirm.js*/
     
     //  Whether the parts will actually be changed or not
-
     @RequestMapping(value = "/{id}/pecas/trocadas", method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)
     public void acceptanceExchangeParts(

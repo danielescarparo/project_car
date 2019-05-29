@@ -1,6 +1,7 @@
 package carProject.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +10,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import carProject.model.Route;
 import carProject.model.Automobile;
 import carProject.model.CarPart;
 import carProject.model.DetritionState;
+import carProject.model.Race;
 import carProject.repository.AutomobileRepository;
 
 @Service("AutomobileService")
@@ -41,6 +44,20 @@ public class AutomobileServiceImpl implements AutomobileService{
 	}
 
 	@Override
+	public List<Route> listRoute(){
+		return Arrays.asList(Route.values()) ;
+	}
+	
+	@Override
+	public void sendRace(String id, Race race) {
+		Optional<Automobile> automobile = automobileRepository.findById(id);
+		
+		automobile.get().updateInformations(race);
+		
+		automobileRepository.save(automobile.get());		
+	}
+
+	@Override
 	public Automobile findCar(String id) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
 		
@@ -50,7 +67,12 @@ public class AutomobileServiceImpl implements AutomobileService{
 		}
 		
 		return null;
-	}	
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> percentage(String id){
+		return null;
+	}
 
 	@Override
 	public HashMap<String, String> globalDetritionState(String id) {

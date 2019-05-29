@@ -1,7 +1,6 @@
 package carProject.model;
 
 public class Race {
-    private String id;
     private Double kilometer;
     private String route;
     private String millimeterTire;
@@ -19,10 +18,6 @@ public class Race {
 		this.millimeterPastille = millimeterPastille;
 		this.monthsFluid = monthsFluid;
 		this.monthsAdditive = monthsAdditive;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public Double getKilometer() {

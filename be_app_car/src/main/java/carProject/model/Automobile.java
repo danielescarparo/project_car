@@ -76,5 +76,31 @@ public class Automobile {
 	
 	public void setCarPart(List<CarPart> carPart) {
 		this.carPart = carPart;
-	}        
+	}
+	
+	public void updateInformations(Race race) {
+		
+		for(CarPart part : carPart) {
+			part.setKmPresent(part.getKmPresent() + race.getKilometer());
+
+			switch(part.getName()) {
+			case "Pneu":
+				part.setWear(part.getWear() - Float.parseFloat(race.getMillimeterTire()));
+				break;
+			case "Disco de freio":
+				part.setWear(part.getWear() - Float.parseFloat(race.getMillimeterDisc()));
+				break;
+			case "Pastilha de freio":
+				part.setWear(part.getWear() - Float.parseFloat(race.getMillimeterPastille()));
+				break;
+			case "Fluido de freio":
+				part.setWear(Float.parseFloat(race.getMonthsFluid()));
+				break;
+			case "Aditivo de radiador":
+				part.setWear(Float.parseFloat(race.getMonthsAdditive()));
+				break;
+			}
+			part.uptadeState();
+		}
+	}	
 }
