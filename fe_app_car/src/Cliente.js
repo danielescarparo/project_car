@@ -73,7 +73,7 @@ class Cliente extends Component {
   }
 
   atualizarCarro = () => {
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}`)
+    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/descricao`)
     .then((response) => {
         this.setState({ carro : response.data });
     })
