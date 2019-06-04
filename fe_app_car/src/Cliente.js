@@ -29,7 +29,7 @@ class Cliente extends Component {
     time = setInterval(this.atualizarModal, 5000);
 
     //busca no backend os tipos de vias
-    axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/corrida/meta')
+    axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/carros/rotas')
     .then((response) => {
         console.log(response.data);
       this.setState({ listaTipoSelect : response.data });
@@ -85,7 +85,7 @@ class Cliente extends Component {
   submeterDados = (e) => {
     e.preventDefault();
     console.log(e.target);
-    axios.post('http://private-31df06-mockprojectcar.apiary-mock.com/sub', {
+    axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/corrida`, {
         kmCadastro : `${this.state.kmCadastro}`,
         viaSelecionada : `${this.state.viaSelecionada}`,
         mmPneu : `${this.state.mmPneu}`,
