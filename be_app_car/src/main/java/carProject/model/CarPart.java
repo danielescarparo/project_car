@@ -172,9 +172,9 @@ public class CarPart {
 		switch(partType) {
 		case DEPTH:
 		case THICKNESS:
-			if((kmPresent > kmLifespan * 0.8) || (wear < validity)){ //80%
+			if((kmPresent > kmLifespan * 0.8) || (wear > validity)){ //80%
 				stateModal = DetritionState.ALERT;
-			}else if((kmPresent > kmLifespan * 0.5) || (wear < (validity * 0.5) + validity)) { //50%
+			}else if((kmPresent > kmLifespan * 0.5) || (wear > (validity * 0.5))) { //50%
 				stateModal = DetritionState.WARNING;
 			}
 			break;
@@ -187,4 +187,39 @@ public class CarPart {
 			break;		
 		}
 	}
+	
+	private int percentage() {
+		
+		if((getPartType() == PartType.DEPTH) || (getPartType() == PartType.THICKNESS)){
+			int percentageWear = (int) (100 - (100 * wear / validity));
+			int percetageKm = (int) ((100 * kmPresent) / kmLifespan);
+			
+			return percentageWear < percetageKm ? percentageWear : percetageKm;						
+		}else if (getPartType() == PartType.MONTHS) {
+			return (int) ((100 * kmPresent) / kmLifespan);
+		}
+		return 0;
+	}
+	
+	public HashMap<String, Object> description() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int percentage = percentage();
+		
+		map.put("state", percentage);
+		map.put("name", name);
+		
+		switch(partType) {
+		case DEPTH:		
+			map.put("descricao", "Profundidade em mm (desgaste)");
+			break;
+		case THICKNESS:
+			map.put("descricao", "Espessura em mm (desgaste)");
+			break;
+		case MONTHS:
+			map.put("descricao", "Meses");
+			break;
+		}		
+		return map;
+	}	
 }

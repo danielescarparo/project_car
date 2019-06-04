@@ -77,9 +77,9 @@ public class AutomobileController {
     // Returns PORCENTAGEM
     @RequestMapping(value = "/{id}/descricao", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
-    public List<HashMap<String, Object>> percentage(
+    public HashMap<String, Object> percentage(
             @PathVariable("id") String id) {
-        return automobileService.percentage(id);
+        return automobileService.partsDescription(id);
     }    
 	
     // Returns modal information that will be displayed

@@ -15,7 +15,7 @@ public interface AutomobileService {
 	public List<Route> listRoute();
 	public void sendRace(String id, Race race);
 	public Automobile findCar(String id);
-	public List<HashMap<String, Object>> percentage(String id);
+	public HashMap<String, Object> partsDescription(String id);
 	public HashMap<String, String> globalDetritionState(String id);
 	public List<CarPart> findPartsList(String id);
 	public List<HashMap<String, Object>> findPartsDetails(String id);

@@ -3,6 +3,8 @@ package carProject.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Document(collection = "cars")
@@ -85,13 +87,13 @@ public class Automobile {
 
 			switch(part.getName()) {
 			case "Pneu":
-				part.setWear(part.getWear() - Float.parseFloat(race.getMillimeterTire()));
+				part.setWear(part.getWear() + Float.parseFloat(race.getMillimeterTire()));
 				break;
 			case "Disco de freio":
-				part.setWear(part.getWear() - Float.parseFloat(race.getMillimeterDisc()));
+				part.setWear(part.getWear() + Float.parseFloat(race.getMillimeterDisc()));
 				break;
 			case "Pastilha de freio":
-				part.setWear(part.getWear() - Float.parseFloat(race.getMillimeterPastille()));
+				part.setWear(part.getWear() + Float.parseFloat(race.getMillimeterPastille()));
 				break;
 			case "Fluido de freio":
 				part.setWear(Float.parseFloat(race.getMonthsFluid()));
@@ -102,5 +104,14 @@ public class Automobile {
 			}
 			part.uptadeState();
 		}
+	}
+	
+	public List<HashMap<String, Object>> description() {
+		List<HashMap<String, Object>> mapParts = new ArrayList<HashMap<String, Object>>();
+		
+		for(CarPart carPart : getCarPart()) {
+			mapParts.add(carPart.description());
+		}
+		return mapParts;
 	}	
 }

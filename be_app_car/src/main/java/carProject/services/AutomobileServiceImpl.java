@@ -14,6 +14,7 @@ import carProject.model.Route;
 import carProject.model.Automobile;
 import carProject.model.CarPart;
 import carProject.model.DetritionState;
+import carProject.model.PartType;
 import carProject.model.Race;
 import carProject.repository.AutomobileRepository;
 
@@ -70,8 +71,15 @@ public class AutomobileServiceImpl implements AutomobileService{
 	}
 	
 	@Override
-	public List<HashMap<String, Object>> percentage(String id){
-		return null;
+	public HashMap<String, Object> partsDescription(String id){
+		Optional<Automobile> automobile = automobileRepository.findById(id);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		if(automobile.isPresent()) {
+			map.put("pecas", automobile.get().description());
+			return map;
+		}
+		return null;		
 	}
 
 	@Override
