@@ -135,11 +135,11 @@ class Cliente extends Component {
         this.setState({ activeModalWarning: true });
         clearInterval(time);
     }
-    if ((stateCarro.stateModal === "alert") && (stateCarro.stateConfirm === false)) {
+    if (stateCarro.stateModal === "alert"){
       this.setState({ activeModalAlert: true });
       clearInterval(time);
     }
-    if ((stateCarro.stateModal === "alert") && (stateCarro.stateConfirm === true)) {
+    if (stateCarro.stateModal === "pending") {
       this.setState({ activeModalConfirm: true });
       clearInterval(time);
     }
