@@ -147,13 +147,13 @@ public class CarPart {
 		
 		switch(partType) {
 			case DEPTH:
-				map.put("descricao", "Profundidade(mm)");
+				map.put("description", "Profundidade(mm)");
 				break;
 			case THICKNESS:
-				map.put("descricao", "Espessura(mm)");
+				map.put("description", "Espessura(mm)");
 				break;
 			case MONTHS:
-				map.put("descricao", "Meses");
+				map.put("description", "Meses");
 				break;
 		}
 		
@@ -211,13 +211,13 @@ public class CarPart {
 		
 		switch(partType) {
 		case DEPTH:		
-			map.put("descricao", "Profundidade em mm (desgaste)");
+			map.put("description", "Profundidade em mm (desgaste)");
 			break;
 		case THICKNESS:
-			map.put("descricao", "Espessura em mm (desgaste)");
+			map.put("description", "Espessura em mm (desgaste)");
 			break;
 		case MONTHS:
-			map.put("descricao", "Meses");
+			map.put("description", "Meses");
 			break;
 		}		
 		return map;

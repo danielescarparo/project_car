@@ -8,13 +8,13 @@ class MecModalWarning extends Component {
     const { active } = this.props;
 
     return (
-        <Modal size='mini' open={active} onClose={(this.props.alteraModalWarningMec)}>
+        <Modal size='mini' open={active} onClose={(this.props.changesModalWarningMec)}>
           <Modal.Header className="icone-exclamacao-warning"><Icon name='exclamation triangle' size='massive'/></Modal.Header>
           <Modal.Content className="texto-aviso">
             <p>Existe alguma(s) peça(s) do seu cliente que logo precisará ser REVISADA.</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive content='OK' onClick={(this.props.alteraModalWarningMec)}/>
+            <Button positive content='OK' onClick={(this.props.changesModalWarningMec)}/>
           </Modal.Actions>
         </Modal> 
     );

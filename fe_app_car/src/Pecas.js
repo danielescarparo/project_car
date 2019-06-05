@@ -4,54 +4,54 @@ import './Pecas.css';
 
 class Pecas extends Component {
   state = {
-    listaPecas: []
+    listParts: []
   };
 
   componentDidMount(){
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas`)
     .then((response) => {
-      this.setState({ listaPecas: response.data });
+      this.setState({ listParts: response.data });
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
-  exibeRetangulos = () => {
-    const copiaListaPecas = [];
+  displaysRectangles = () => {
+    const copyPartsList = [];
 
-    for(let index in this.state.listaPecas){
-      if(this.state.listaPecas[index].alerta === "none")
+    for(let index in this.state.listParts){
+      if(this.state.listParts[index].stateModal === "none")
       {
-        copiaListaPecas.push(
+        copyPartsList.push(
         <div key={index} className="rectangle"> 
-          <div><b>{`Peça:`}</b> {`${this.state.listaPecas[index].nome}`}</div>
-          <div><b>{`Km vida útil:`}</b> {`${this.state.listaPecas[index].km} km`}</div>
-          <div><b>{`Km atual:`}</b> {`${this.state.listaPecas[index].km_atual} km`}</div>
-          <div><b>{`${this.state.listaPecas[index].descricao} até:`}</b> {`${this.state.listaPecas[index].aceito}`}</div>
-          <div><b>{`${this.state.listaPecas[index].descricao} atual:`}</b> {`${this.state.listaPecas[index].atual}`}</div>
+          <div><b>{`Peça:`}</b> {`${this.state.listParts[index].name}`}</div>
+          <div><b>{`Km vida útil:`}</b> {`${this.state.listParts[index].kmLifespan} km`}</div>
+          <div><b>{`Km atual:`}</b> {`${this.state.listParts[index].kmPresent} km`}</div>
+          <div><b>{`${this.state.listParts[index].description} até:`}</b> {`${this.state.listParts[index].validity}`}</div>
+          <div><b>{`${this.state.listParts[index].description} atual:`}</b> {`${this.state.listParts[index].wear}`}</div>
         </div>)
-      }else if(this.state.listaPecas[index].alerta === "warning"){
-        copiaListaPecas.push(
+      }else if(this.state.listParts[index].stateModal === "warning"){
+        copyPartsList.push(
           <div key={index} className="rectangle"> 
-            <div><b>{`Peça:`}</b> {`${this.state.listaPecas[index].nome}`}</div>
-            <div><b>{`Km vida útil:`}</b> {`${this.state.listaPecas[index].km} km`}</div>
-            <div><b>{`Km atual:`}</b> {`${this.state.listaPecas[index].km_atual} km`}</div>
-            <div><b>{`${this.state.listaPecas[index].descricao} até:`}</b> {`${this.state.listaPecas[index].aceito}`}</div>
-            <div><b>{`${this.state.listaPecas[index].descricao} atual:`}</b> {`${this.state.listaPecas[index].atual}`}</div>
+            <div><b>{`Peça:`}</b> {`${this.state.listParts[index].name}`}</div>
+            <div><b>{`Km vida útil:`}</b> {`${this.state.listParts[index].kmLifespan} km`}</div>
+            <div><b>{`Km atual:`}</b> {`${this.state.listParts[index].kmPresent} km`}</div>
+            <div><b>{`${this.state.listParts[index].description} até:`}</b> {`${this.state.listParts[index].validity}`}</div>
+            <div><b>{`${this.state.listParts[index].description} atual:`}</b> {`${this.state.listParts[index].wear}`}</div>
             <div className="fundo-aviso-yellow">
               <i className="alerta-yellow fas fa-exclamation-triangle fa-2x"></i> 
               <div><i>Logo precisará ser revisada</i></div>
             </div>
           </div>)
       }else{
-        copiaListaPecas.push(
+        copyPartsList.push(
           <div key={index} className="rectangle"> 
-            <div><b>{`Peça:`}</b> {`${this.state.listaPecas[index].nome}`}</div>
-            <div><b>{`Km vida útil:`}</b> {`${this.state.listaPecas[index].km} km`}</div>
-            <div><b>{`Km atual:`}</b> {`${this.state.listaPecas[index].km_atual} km`}</div>
-            <div><b>{`${this.state.listaPecas[index].descricao} até:`}</b> {`${this.state.listaPecas[index].aceito}`}</div>
-            <div><b>{`${this.state.listaPecas[index].descricao} atual:`}</b> {`${this.state.listaPecas[index].atual}`}</div>
+            <div><b>{`Peça:`}</b> {`${this.state.listParts[index].name}`}</div>
+            <div><b>{`Km vida útil:`}</b> {`${this.state.listParts[index].kmLifespan} km`}</div>
+            <div><b>{`Km atual:`}</b> {`${this.state.listParts[index].kmPresent} km`}</div>
+            <div><b>{`${this.state.listParts[index].description} até:`}</b> {`${this.state.listParts[index].validity}`}</div>
+            <div><b>{`${this.state.listParts[index].description} atual:`}</b> {`${this.state.listParts[index].wear}`}</div>
             <div className="fundo-aviso-red">
               <i className="alerta-red fas fa-exclamation-triangle fa-2x"></i> 
               <div><i>Precisa ser trocada</i></div>
@@ -60,14 +60,14 @@ class Pecas extends Component {
       }
     }
 
-    return copiaListaPecas;
+    return copyPartsList;
   }
 
   render() {
     return (
       <div>
         <div className="titulo-pecas">Informações das peças</div> 
-        <div className="group-pecas">{this.exibeRetangulos()}</div>
+        <div className="group-pecas">{this.displaysRectangles()}</div>
       </div>
     );
   }

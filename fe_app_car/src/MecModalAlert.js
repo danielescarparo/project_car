@@ -6,29 +6,29 @@ import './MecModalAlert.css';
 
 class MecModalAlert extends Component {
     state = {
-        selecionados : []
+        selected : []
     }
-    selecionarItem = (index) => {
-        const copiaSelecionados = [...this.state.selecionados];
-        copiaSelecionados.push(this.props.listaPecasAlert[index].id);
-        this.setState({selecionados : copiaSelecionados});
+    selectItem = (index) => {
+        const copySelected = [...this.state.selected];
+        copySelected.push(this.props.listPartsAlert[index].id);
+        this.setState({selected : copySelected});
     }
 
     checkboxAlert = () => {
-        const elementos = [];
-        for(let index in this.props.listaPecasAlert){
-            if(this.props.listaPecasAlert[index].alerta === "alert"){
-                elementos.push(                    
-                    <Checkbox key={this.props.listaPecasAlert[index].id} label={`${this.props.listaPecasAlert[index].nome}`} onClick={() => this.selecionarItem(index)}/>                    
+        const elements = [];
+        for(let index in this.props.listPartsAlert){
+            if(this.props.listPartsAlert[index].stateModal === "alert"){
+                elements.push(                    
+                    <Checkbox key={this.props.listPartsAlert[index].id} label={`${this.props.listPartsAlert[index].name}`} onClick={() => this.selectItem(index)}/>                    
                 )
             }    
         }
-        return elementos;
+        return elements;
     }
 
-    enviaDadosSelecionados = () => {
+    sendSelectedData = () => {
       axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas/selecionadas`, {
-          listaSelecionados : `${this.state.selecionados}`
+          listaselected : `${this.state.selected}`
       }).then((response) => {
           //as pecas do mecanico foram enviadas com sucesso
         })
@@ -36,12 +36,12 @@ class MecModalAlert extends Component {
           console.log(error);
         });
     
-      this.props.alteraModalAlertMec();
+      this.props.changesModalAlertMec();
     }
 
     render() {
     const { active } = this.props;
-        console.log(this.state.selecionados);
+        console.log(this.state.selected);
     return (
         <Modal size='mini' open={active}>
           <Modal.Header className="icone-exclamacao-alert"><Icon name='exclamation triangle' size='massive'/></Modal.Header>
@@ -50,7 +50,7 @@ class MecModalAlert extends Component {
             <div className="alinhado-checkbox">{this.checkboxAlert()}</div>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive content='OK' onClick={(this.enviaDadosSelecionados)}/>
+            <Button positive content='OK' onClick={(this.sendSelectedData)}/>
           </Modal.Actions>
         </Modal> 
     );

@@ -5,9 +5,9 @@ import './Carro.css';
 
 class Carro extends Component {
     state = {
-        carroSelecionado : 0,
-        listaCarros : [],
-        listaPecas: []
+        selectCar : 0,
+        listCars : [],
+        listParts: []
     };
 
     componentDidMount(){
@@ -15,7 +15,7 @@ class Carro extends Component {
         axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/carros')
         .then((response) => {
             console.log(response.data);
-          this.setState({ listaCarros: response.data });
+          this.setState({ listCars: response.data });
         })
         .catch((error) => {
           console.log(error);
@@ -23,41 +23,41 @@ class Carro extends Component {
     }
 
     // buscaPecas = () => {
-    //     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carro/${this.state.carroSelecionado}/`)
+    //     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.state.selectCar}/`)
     //     .then((response) => {
-    //       this.setState({ listaPecas: response.data });
+    //       this.setState({ listParts: response.data });
     //     })
     //     .catch((error) => {
     //       console.log(error);
     //     });
     // }
     
-    confirmarCarro = () => {
-        axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.state.carroSelecionado}`)
-        .then((response) => {
-            this.props.history.push(`carros/${this.state.carroSelecionado}`);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    confirmCar = () => {
+        // axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.state.selectCar}`)
+        // .then((response) => {
+            this.props.history.push(`carros/${this.state.selectCar}`);
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
     }
 
-    recebeDado = (e, data) => {
+    receiveData = (e, data) => {
       console.log(e, data);
       console.log(e.target.name);
         this.setState({[data.name]: data.value});
         // this.setState({[e.target.name]: e.target.value}, this.buscaPecas);
     }
     
-    adicionarCarros = () => {
-        return this.state.listaCarros.map((carro) => {
+    addCars = () => {
+        return this.state.listCars.map((car) => {
             return {
-              key: carro.id,
-              value: carro.id,
-              text: `Marca: ${carro.marca}, Modelo: ${carro.modelo}, Versão: ${carro.versao}, Ano: ${carro.ano}, Motor: ${carro.motor}`
+              key: car.id,
+              value: car.id,
+              text: `Marca: ${car.brand}, Modelo: ${car.model}, Versão: ${car.version}, Ano: ${car.year}, Motor: ${car.engine}`
             } 
             
-            // <option key={carro.id} className="carros" value={carro.id}>{`Marca: ${carro.marca}, Modelo: ${carro.modelo}, Versão: ${carro.versao}, Ano: ${carro.ano}, Motor: ${carro.motor}`} </option>
+            // <option key={car.id} className="carros" value={car.id}>{`Marca: ${car.marca}, Modelo: ${car.modelo}, Versão: ${car.versao}, Ano: ${car.ano}, Motor: ${car.motor}`} </option>
         });
     }
 
@@ -65,12 +65,12 @@ class Carro extends Component {
     return (
         <div className="carro-group">        
         <div className="titulo-pecas">Selecione seu carro</div>
-        <Select placeholder='Selecione seu carro' options={this.adicionarCarros()} name="carroSelecionado" onChange={this.recebeDado} required={true}/>
-        {/* <select className="select-carros" defaultValue="" name="carroSelecionado" onChange={this.recebeDado} required={true}>
+        <Select placeholder='Selecione seu carro' options={this.addCars()} name="selectCar" onChange={this.receiveData} required={true}/>
+        {/* <select className="select-carros" defaultValue="" name="selectCar" onChange={this.receiveData} required={true}>
           <option disabled value=""> --- Selecione seu carro --- </option>
-            {this.adicionarCarros()}
+            {this.addCars()}
         </select> */}
-        <button className="button-cadastro confirmar-carro" onClick={this.confirmarCarro}>Confirmar carro</button>
+        <button className="button-cadastro confirmar-carro" onClick={this.confirmCar}>Confirmar carro</button>
       </div>
     );
   }

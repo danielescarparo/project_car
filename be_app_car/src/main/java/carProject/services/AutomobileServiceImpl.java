@@ -76,7 +76,7 @@ public class AutomobileServiceImpl implements AutomobileService{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		if(automobile.isPresent()) {
-			map.put("pecas", automobile.get().description());
+			map.put("parts", automobile.get().description());
 			return map;
 		}
 		return null;		

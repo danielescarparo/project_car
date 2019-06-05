@@ -9,92 +9,93 @@ let time;
 
 class Cliente extends Component {
   state = {
-    listaTipoSelect : [],
-    kmCadastro : "",
-    viaSelecionada : "",
-    mmPneu : "",
-    mmDisco : "",
-    mmPastilha : "",
-    mesesFluido : "",
-    mesesAditivo : "",
-    carro : {},
+    listTypeSelect : [],
+    kilometer : "",
+    routeSelect : "",
+    millimeterTire : "",
+    millimeterDisc : "",
+    millimeterPastille : "",
+    monthsFluid : "",
+    monthsAdditive : "",
+    car : {},
     stateCarro : {},
     activeModalWarning: false,
     activeModalAlert: false,
     activeModalConfirm: false,
-    listaTrocas: []
+    listExchange: []
   };
 
   componentDidMount(){
-    time = setInterval(this.atualizarModal, 5000);
+    time = setInterval(this.upgradeModal, 5000);
 
     //busca no backend os tipos de vias
     axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/carros/rotas')
     .then((response) => {
         console.log(response.data);
-      this.setState({ listaTipoSelect : response.data });
+      this.setState({ listTypeSelect : response.data });
     })
     .catch((error) => {
       console.log(error);
     });
     
-    this.atualizarCarro();
+    this.upgradeCar();
 
-    this.atualizarModal();
+    this.upgradeModal();
 
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/trocas`)
     .then((response) => {
-        this.setState({ listaTrocas : response.data });
+        this.setState({ listExchange : response.data });
+        console.log("aqui",response.data);
     })
     .catch((error) => {
         console.log(error);
     });
   }
 
-  adicionarVia = () => {
-    return this.state.listaTipoSelect.map((via) => {
+  addVia = () => {
+    return this.state.listTypeSelect.map((via) => {
         return <option key={via} className="carros" value={via}>{`${via}`} </option>
     });
   }
 
-  recebeDado = (e) => {
+  receiveData = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  atualizarModal = () => {
+  upgradeModal = () => {
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/modal`)
     .then((response) => {
         this.setState({ stateCarro : response.data });
-        this.verificaModal(response.data);
+        this.verifyModal(response.data);
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
-  atualizarCarro = () => {
+  upgradeCar = () => {
     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/descricao`)
     .then((response) => {
-        this.setState({ carro : response.data });
+        this.setState({ car : response.data });
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
-  submeterDados = (e) => {
+  submitData = (e) => {
     e.preventDefault();
     console.log(e.target);
     axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/corrida`, {
-        kmCadastro : `${this.state.kmCadastro}`,
-        viaSelecionada : `${this.state.viaSelecionada}`,
-        mmPneu : `${this.state.mmPneu}`,
-        mmDisco : `${this.state.mmDisco}`,
-        mmPastilha : `${this.state.mmPastilha}`,
-        mesesFluido : `${this.state.mesesFluido}`,
-        mesesAditivo : `${this.state.mesesAditivo}`
+        kilometer : `${this.state.kilometer}`,
+        route : `${this.state.routeSelect}`,
+        millimeterTire : `${this.state.millimeterTire}`,
+        millimeterDisc : `${this.state.millimeterDisc}`,
+        millimeterPastille : `${this.state.millimeterPastille}`,
+        monthsFluid : `${this.state.monthsFluid}`,
+        monthsAdditive : `${this.state.monthsAdditive}`
     }).then((response) => {
-        this.setState({kmCadastro : "", viaSelecionada : "", mmPneu : "", mmDisco : "", mmPastilha : "", mesesFluido : "", mesesAditivo : ""})
+        this.setState({kilometer : "", routeSelect : "", millimeterTire : "", millimeterDisc : "", millimeterPastille : "", monthsFluid : "", monthsAdditive : ""})
         this.props.history.push(`/carros/${this.props.match.params.id}`);
       })
       .catch((error) => {
@@ -102,33 +103,33 @@ class Cliente extends Component {
       });
   }
 
-  preenchimentoPorcentagem = () => {
-    const elementos = [];
-    const nomePecas = ["mmPneu", "mmDisco", "mmPastilha", "mesesFluido", "mesesAditivo"];
+  fillPercentage = () => {
+    const elements = [];
+    const nameParts = ["millimeterTire", "millimeterDisc", "millimeterPastille", "monthsFluid", "monthsAdditive"];
 
-    for(let index in this.state.carro.pecas){
-      elementos.push(<div key={this.state.carro.pecas[index].id}><div className="texto-cadastro">{`${this.state.carro.pecas[index].nome}`}</div><input className="input-estilo" name={`${nomePecas[index]}`} onChange={this.recebeDado} value={this.state[nomePecas[index]]} required={true} placeholder={`${this.state.carro.pecas[index].descricao}`}></input><div className="limite"><div className="preenchido" style={{ width: `${this.state.carro.pecas[index].state}%`}}>{`${this.state.carro.pecas[index].state}%`}</div></div></div>);
+    for(let index in this.state.car.parts){
+      elements.push(<div key={this.state.car.parts[index].id}><div className="texto-cadastro">{`${this.state.car.parts[index].name}`}</div><input className="input-estilo" name={`${nameParts[index]}`} onChange={this.receiveData} value={this.state[nameParts[index]]} required={true} placeholder={`${this.state.car.parts[index].description}`}></input><div className="limite"><div className="preenchido" style={{ width: `${this.state.car.parts[index].state}%`}}>{`${this.state.car.parts[index].state}%`}</div></div></div>);
     }
 
-    return elementos;
+    return elements;
   }
 
-  alteraModalWarning = () => {
+  changesModalWarning = () => {
     this.setState({ activeModalWarning: false });
-    time = setInterval(this.atualizarModal, 5000);
+    time = setInterval(this.upgradeModal, 5000);
   }
 
-  alteraModalAlert = () => {
+  changesModalAlert = () => {
     this.setState({ activeModalAlert: false });
-    time = setInterval(this.atualizarModal, 5000);
+    time = setInterval(this.upgradeModal, 5000);
   }
 
-  alteraModalConfirm = () => {
+  changesModalConfirm = () => {
     this.setState({ activeModalConfirm: false });
-    time = setInterval(this.atualizarModal, 5000);
+    time = setInterval(this.upgradeModal, 5000);
   }
 
-  verificaModal = (stateCarro) => {
+  verifyModal = (stateCarro) => {
     console.log("Estado:", stateCarro);
     if (stateCarro.stateModal === "warning") {
         this.setState({ activeModalWarning: true });
@@ -144,34 +145,34 @@ class Cliente extends Component {
     }
   }
 
-  chamaPecas = () => {
+  callParts = () => {
     this.props.history.push(`/carros/${this.props.match.params.id}/pecas`);
   }
 
   render() {
-    console.log(this.state.carro);
-    const { listaTrocas } = this.state;
+    console.log(this.state.car);
+    const { listExchange } = this.state;
 
     return (
       <Fragment>
-        <ModalWarning active={this.state.activeModalWarning} alteraModalWarning={this.alteraModalWarning}/>
-        <ModalAlert active={this.state.activeModalAlert} alteraModalAlert={this.alteraModalAlert}/>
-        <ModalConfirm active={this.state.activeModalConfirm} alteraModalConfirm={this.alteraModalConfirm} listaTrocas={listaTrocas} match={this.props.match}/>
+        <ModalWarning active={this.state.activeModalWarning} changesModalWarning={this.changesModalWarning}/>
+        <ModalAlert active={this.state.activeModalAlert} changesModalAlert={this.changesModalAlert}/>
+        <ModalConfirm active={this.state.activeModalConfirm} changesModalConfirm={this.changesModalConfirm} listExchange={listExchange} match={this.props.match}/>
         <div className="dois-blocos">
-        <form className="html-login" onSubmit={this.submeterDados}>        
+        <form className="html-login" onSubmit={this.submitData}>        
           <div className="margem-cadastro">
             <div className="titulo-pecas">Entre com as informações abaixo</div>            
               <div className="dados">
                 <div className="texto-cadastro">Quilometragem</div>
-                <input className="input-estilo" name="kmCadastro" onChange={this.recebeDado} value={this.state.kmCadastro} required={true}></input>
+                <input className="input-estilo" name="kilometer" onChange={this.receiveData} value={this.state.kilometer} required={true}></input>
                 <div className="texto-cadastro">Via</div>
-                <select name="viaSelecionada" onChange={this.recebeDado} value={this.state.viaSelecionada} required={true} className="selectVia">
+                <select name="routeSelect" onChange={this.receiveData} value={this.state.routeSelect} required={true} className="selectVia">
                     <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
-                        {this.adicionarVia()}
+                        {this.addVia()}
                 </select>
-                {this.preenchimentoPorcentagem()}
+                {this.fillPercentage()}
                 <button className="button-cadastro" type="submit">Submeter</button>
-                <button className="button-cadastro outras-prop-botao" onClick={this.chamaPecas}><i className="fas fa-plus"></i> Informações</button>
+                <button className="button-cadastro outras-prop-botao" onClick={this.callParts}><i className="fas fa-plus"></i> Informações</button>
             </div>            
           </div>
         </form>

@@ -8,13 +8,13 @@ class ModalWarning extends Component {
     const { active } = this.props;
 
     return (
-        <Modal size='mini' open={active} onClose={(this.props.alteraModalWarning)}>
+        <Modal size='mini' open={active} onClose={(this.props.changesModalWarning)}>
           <Modal.Header className="icone-exclamacao-warning"><Icon name='exclamation triangle' size='massive'/></Modal.Header>
           <Modal.Content className="texto-aviso">
             <p>Existe alguma peça que logo deverá ser REVISAO. Clique no botão "mais informações" para mais detalhes.</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button positive content='OK' onClick={(this.props.alteraModalWarning)}/>
+            <Button positive content='OK' onClick={(this.props.changesModalWarning)}/>
           </Modal.Actions>
         </Modal> 
     );
