@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Pecas.css';
 import MecModalWarning from './MecModalWarning'
 import MecModalAlert from './MecModalAlert'
+import constants from './constants'
 
 let time;
 
@@ -17,7 +18,7 @@ class Pecas extends Component {
   componentDidMount(){
     time = setInterval(this.getStatusModal, 5000);
 
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas`)
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/pecas`)
     .then((response) => {
       this.setState({ listParts: response.data });
       this.getStatusModal();
@@ -28,7 +29,7 @@ class Pecas extends Component {
   }
 
   getStatusModal = () => {
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/mecanico`)
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/mecanico`)
     .then((response) => {
       console.log(response.data);
       this.verifyModal(response.data);

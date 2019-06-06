@@ -4,6 +4,7 @@ import './Cliente.css';
 import ModalWarning from './ModalWarning'
 import ModalAlert from './ModalAlert'
 import ModalConfirm from './ModalConfirm'
+import constants from './constants'
 import { Select } from 'semantic-ui-react'
 
 let time;
@@ -31,7 +32,7 @@ class Cliente extends Component {
     time = setInterval(this.upgradeModal, 5000);
 
     //busca no backend os tipos de vias
-    axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/carros/rotas')
+    axios.get(`${constants.URL}/carros/rotas`)
     .then((response) => {
         console.log(response.data);
       this.setState({ listTypeSelect : response.data });
@@ -44,7 +45,7 @@ class Cliente extends Component {
 
     this.upgradeModal();
 
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/trocas`)
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/trocas`)
     .then((response) => {
         this.setState({ listExchange : response.data });
         console.log("aqui",response.data);
@@ -78,7 +79,7 @@ class Cliente extends Component {
   }
 
   upgradeModal = () => {
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/modal`)
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/modal`, )
     .then((response) => {
         this.setState({ stateCarro : response.data });
         this.verifyModal(response.data);
@@ -89,7 +90,7 @@ class Cliente extends Component {
   }
 
   upgradeCar = () => {
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/descricao`)
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/descricao`)
     .then((response) => {
         this.setState({ car : response.data });
     })
@@ -101,7 +102,7 @@ class Cliente extends Component {
   submitData = (e) => {
     e.preventDefault();
     console.log(e.target);
-    axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/corrida`, {
+    axios.post(`${constants.URL}/carros/${this.props.match.params.id}/corrida`, {
         kilometer : `${this.state.kilometer}`,
         route : `${this.state.routeSelect}`,
         millimeterTire : `${this.state.millimeterTire}`,
@@ -122,8 +123,31 @@ class Cliente extends Component {
     const elements = [];
     const nameParts = ["millimeterTire", "millimeterDisc", "millimeterPastille", "monthsFluid", "monthsAdditive"];
 
+    console.log("Carro:", this.state.car);
+
     for(let index in this.state.car.parts){
-      elements.push(<div key={this.state.car.parts[index].id}><div className="texto-cadastro">{`${this.state.car.parts[index].name}`}</div><input className="input-estilo" name={`${nameParts[index]}`} onChange={this.receiveData} value={this.state[nameParts[index]]} required={true} placeholder={`${this.state.car.parts[index].description}`}></input><div className="limite"><div className="preenchido" style={{ width: `${this.state.car.parts[index].state}%`}}>{`${this.state.car.parts[index].state}%`}</div></div></div>);
+      elements.push(
+        <div key={this.state.car.parts[index].name}>
+          <div className="texto-cadastro">
+            {`${this.state.car.parts[index].name}`}
+          </div>
+
+          <input 
+            className="input-estilo" 
+            name={`${nameParts[index]}`} 
+            onChange={this.receiveData} 
+            value={this.state[nameParts[index]]} 
+            required={true} 
+            placeholder={`${this.state.car.parts[index].description}`}
+          >
+          </input>
+          
+          <div className="limite">
+            <div className="preenchido" style={{ width: `${this.state.car.parts[index].state}%`}}>
+              {`${this.state.car.parts[index].state}%`}
+            </div>
+          </div>
+        </div>);
     }
 
     return elements;

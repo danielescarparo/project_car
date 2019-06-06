@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Pecas.css';
+import constants from './constants'
 
 class Pecas extends Component {
   state = {
@@ -8,7 +9,7 @@ class Pecas extends Component {
   };
 
   componentDidMount(){
-    axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas`)
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/pecas`)
     .then((response) => {
       this.setState({ listParts: response.data });
     })

@@ -269,7 +269,7 @@ Then add the block below to your `launch.json` file and put it inside the `.vsco
     "name": "Chrome",
     "type": "chrome",
     "request": "launch",
-    "url": "http://localhost:3000",
+    "${Constants.URL}/": "http://localhost:3000",
     "webRoot": "${workspaceRoot}/src",
     "userDataDir": "${workspaceRoot}/.vscode/chrome",
     "sourceMapPathOverrides": {
@@ -336,7 +336,7 @@ class DangerButton extends Component {
 export default DangerButton;
 ```
 
-Be aware of the [difference between default and named exports](http://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-curly-braces-for-import/36796281#36796281). It is a common source of mistakes.
+Be aware of the [difference between default and named exports](http://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-c${Constants.URL}/y-braces-for-import/36796281#36796281). It is a common source of mistakes.
 
 We suggest that you stick to using default imports and exports when a module only exports a single thing (for example, a component). That’s what you get when you use `export default Button` and `import Button from './Button'`.
 
@@ -344,7 +344,7 @@ Named exports are useful for utility modules that export several functions. A mo
 
 Learn more about ES6 modules:
 
-* [When to use the curly braces?](http://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-curly-braces-for-import/36796281#36796281)
+* [When to use the c${Constants.URL}/y braces?](http://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-c${Constants.URL}/y-braces-for-import/36796281#36796281)
 * [Exploring ES6: Modules](http://exploringjs.com/es6/ch_modules.html)
 * [Understanding ES6: Modules](https://leanpub.com/understandinges6/read#leanpub-auto-encapsulating-code-with-modules)
 
@@ -483,7 +483,7 @@ import logo from './logo.png'; // Tell Webpack this JS file uses this image
 console.log(logo); // /logo.84287d09.png
 
 function Header() {
-  // Import result is the URL of your image
+  // Import result is the ${Constants.URL}/ of your image
   return <img src={logo} alt="Logo" />;
 }
 
@@ -496,7 +496,7 @@ This works in CSS too:
 
 ```css
 .Logo {
-  background-image: url(./logo.png);
+  background-image: ${Constants.URL}/(./logo.png);
 }
 ```
 
@@ -530,26 +530,26 @@ This mechanism provides a number of benefits:
 
 However there is an **escape hatch** that you can use to add an asset outside of the module system.
 
-If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
+If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_${Constants.URL}/`.
 
 Inside `index.html`, you can use it like this:
 
 ```html
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+<link rel="shortcut icon" href="%PUBLIC_${Constants.URL}/%/favicon.ico">
 ```
 
-Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
+Only files inside the `public` folder will be accessible by `%PUBLIC_${Constants.URL}/%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
 
-When you run `npm run build`, Create React App will substitute `%PUBLIC_URL%` with a correct absolute path so your project works even if you use client-side routing or host it at a non-root URL.
+When you run `npm run build`, Create React App will substitute `%PUBLIC_${Constants.URL}/%` with a correct absolute path so your project works even if you use client-side routing or host it at a non-root ${Constants.URL}/.
 
-In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
+In JavaScript code, you can use `process.env.PUBLIC_${Constants.URL}/` for similar purposes:
 
 ```js
 render() {
   // Note: this is an escape hatch and should be used sparingly!
-  // Normally we recommend using `import` for getting asset URLs
+  // Normally we recommend using `import` for getting asset ${Constants.URL}/s
   // as described in “Adding Images and Fonts” above this section.
-  return <img src={process.env.PUBLIC_URL + '/img/logo.png'} />;
+  return <img src={process.env.PUBLIC_${Constants.URL}/ + '/img/logo.png'} />;
 }
 ```
 
@@ -718,7 +718,7 @@ You can also access the environment variables starting with `REACT_APP_` in the 
 
 Note that the caveats from the above section apply:
 
-* Apart from a few built-in variables (`NODE_ENV` and `PUBLIC_URL`), variable names must start with `REACT_APP_` to work.
+* Apart from a few built-in variables (`NODE_ENV` and `PUBLIC_${Constants.URL}/`), variable names must start with `REACT_APP_` to work.
 * The environment variables are injected at build time. If you need to inject them at runtime, [follow this approach instead](#generating-dynamic-meta-tags-on-the-server).
 
 ### Adding Temporary Environment Variables In Your Shell
@@ -816,7 +816,7 @@ Conveniently, this avoids [CORS issues](http://stackoverflow.com/questions/21854
 Fetch API cannot load http://localhost:4000/api/todos. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 ```
 
-Keep in mind that `proxy` only has effect in development (with `npm start`), and it is up to you to ensure that URLs like `/api/todos` point to the right thing in production. You don’t have to use the `/api` prefix. Any unrecognized request without a `text/html` accept header will be redirected to the specified `proxy`.
+Keep in mind that `proxy` only has effect in development (with `npm start`), and it is up to you to ensure that ${Constants.URL}/s like `/api/todos` point to the right thing in production. You don’t have to use the `/api` prefix. Any unrecognized request without a `text/html` accept header will be redirected to the specified `proxy`.
 
 The `proxy` option supports HTTP, HTTPS and WebSocket connections.<br>
 If the `proxy` option is **not** flexible enough for you, alternatively you can:
@@ -850,7 +850,7 @@ Note that the server will use a self-signed certificate, so your web browser wil
 
 ## Generating Dynamic `<meta>` Tags on the Server
 
-Since Create React App doesn’t support server rendering, you might be wondering how to make `<meta>` tags dynamic and reflect the current URL. To solve this, we recommend to add placeholders into the HTML, like this:
+Since Create React App doesn’t support server rendering, you might be wondering how to make `<meta>` tags dynamic and reflect the current ${Constants.URL}/. To solve this, we recommend to add placeholders into the HTML, like this:
 
 ```html
 <!doctype html>
@@ -860,7 +860,7 @@ Since Create React App doesn’t support server rendering, you might be wonderin
     <meta property="og:description" content="__OG_DESCRIPTION__">
 ```
 
-Then, on the server, regardless of the backend you use, you can read `index.html` into memory and replace `__OG_TITLE__`, `__OG_DESCRIPTION__`, and any other placeholders with values depending on the current URL. Just make sure to sanitize and escape the interpolated values so that they are safe to embed into HTML!
+Then, on the server, regardless of the backend you use, you can read `index.html` into memory and replace `__OG_TITLE__`, `__OG_DESCRIPTION__`, and any other placeholders with values depending on the current ${Constants.URL}/. Just make sure to sanitize and escape the interpolated values so that they are safe to embed into HTML!
 
 If you use a Node server, you can even share the route matching logic between the client and the server. However duplicating it also works fine in simple cases.
 
@@ -1253,7 +1253,7 @@ The choice of your server software isn’t important either. Since Create React 
 
 The `build` folder with static assets is the only output produced by Create React App.
 
-However this is not quite enough if you use client-side routing. Read the next section if you want to support URLs like `/todos/42` in your single-page app.
+However this is not quite enough if you use client-side routing. Read the next section if you want to support ${Constants.URL}/s like `/todos/42` in your single-page app.
 
 ### Serving Apps with Client-Side Routing
 
@@ -1298,7 +1298,7 @@ This will let Create React App correctly infer the root path to use in the gener
 
 >Note: this feature is available with `react-scripts@0.9.0` and higher.
 
-If you are not using the HTML5 `pushState` history API or not using client-side routing at all, it is unnecessary to specify the URL from which your app will be served. Instead, you can put this in your `package.json`:
+If you are not using the HTML5 `pushState` history API or not using client-side routing at all, it is unnecessary to specify the ${Constants.URL}/ from which your app will be served. Instead, you can put this in your `package.json`:
 
 ```js
   "homepage": ".",
@@ -1342,7 +1342,7 @@ Then run the `firebase init` command from your project’s root. You need to cho
     have a build process for your assets, use your build's output directory.
 
     ? What do you want to use as your public directory? build
-    ? Configure as a single-page app (rewrite all urls to /index.html)? Yes
+    ? Configure as a single-page app (rewrite all ${Constants.URL}/s to /index.html)? Yes
     ✔  Wrote build/index.html
 
     i  Writing configuration info to firebase.json...
@@ -1366,7 +1366,7 @@ Now, after you create a production build with `npm run build`, you can deploy it
     ✔  Deploy complete!
 
     Project Console: https://console.firebase.google.com/project/example-app-fd690/overview
-    Hosting URL: https://example-app-fd690.firebaseapp.com
+    Hosting ${Constants.URL}/: https://example-app-fd690.firebaseapp.com
 ```
 
 For more information see [Add Firebase to your JavaScript Project](https://firebase.google.com/docs/web/setup).
@@ -1386,7 +1386,7 @@ Open your `package.json` and add a `homepage` field:
   "homepage": "https://myusername.github.io/my-app",
 ```
 
-Create React App uses the `homepage` field to determine the root URL in the built HTML file.
+Create React App uses the `homepage` field to determine the root ${Constants.URL}/ in the built HTML file.
 
 #### Step 2: Install `gh-pages` and add `deploy` to `scripts` in `package.json`
 
@@ -1431,9 +1431,9 @@ You can configure a custom domain with GitHub Pages by adding a `CNAME` file to 
 
 #### Notes on client-side routing
 
-GitHub Pages doesn’t support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a url like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
+GitHub Pages doesn’t support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a ${Constants.URL}/ like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
 
-* You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#histories) about different history implementations in React Router.
+* You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the ${Constants.URL}/ will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#histories) about different history implementations in React Router.
 * Alternatively, you can use a trick to teach GitHub Pages to handle 404 by redirecting to your `index.html` page with a special redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide](https://github.com/rafrex/spa-github-pages).
 
 ### Heroku
@@ -1521,13 +1521,13 @@ When you build the project, Create React App will place the `public` folder cont
     "now-start": "serve build/",
     ```
     
-4. Run `now` from your project directory. You will see a **now.sh** URL in your output like this:
+4. Run `now` from your project directory. You will see a **now.sh** ${Constants.URL}/ in your output like this:
     
     ```
     > Ready! https://your-project-dirname-tpspyhtdtk.now.sh (copied to clipboard)
     ```
     
-    Paste that URL into your browser when the build is complete, and you will see your deployed app.
+    Paste that ${Constants.URL}/ into your browser when the build is complete, and you will see your deployed app.
 
 Details are available in [this article.](https://zeit.co/blog/now-static)
 
@@ -1554,7 +1554,7 @@ Install the Surge CLI if you haven’t already by running `npm install -g surge`
     Success! Project is published and running at create-react-app.surge.sh
 ```
 
-Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
+Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every ${Constants.URL}/ falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
 
 ## Advanced Configuration
 
@@ -1566,7 +1566,7 @@ BROWSER | :white_check_mark: | :x: | By default, Create React App will open the 
 HOST | :white_check_mark: | :x: | By default, the development web server binds to `localhost`. You may use this variable to specify a different host.
 PORT | :white_check_mark: | :x: | By default, the development web server will attempt to listen on port 3000 or prompt you to attempt the next available port. You may use this variable to specify a different port.
 HTTPS | :white_check_mark: | :x: | When set to `true`, Create React App will run the development server in `https` mode.
-PUBLIC_URL | :x: | :white_check_mark: | Create React App assumes your application is hosted at the serving web server's root or a subpath as specified in [`package.json` (`homepage`)](#building-for-relative-paths). Normally, Create React App ignores the hostname. You may use this variable to force assets to be referenced verbatim to the url you provide (hostname included). This may be particularly useful when using a CDN to host your application.
+PUBLIC_${Constants.URL}/ | :x: | :white_check_mark: | Create React App assumes your application is hosted at the serving web server's root or a subpath as specified in [`package.json` (`homepage`)](#building-for-relative-paths). Normally, Create React App ignores the hostname. You may use this variable to force assets to be referenced verbatim to the ${Constants.URL}/ you provide (hostname included). This may be particularly useful when using a CDN to host your application.
 CI | :large_orange_diamond: | :white_check_mark: | When set to `true`, Create React App treats warnings as failures in the build. It also makes the test runner non-watching. Most CIs set this flag by default.
 
 ## Troubleshooting

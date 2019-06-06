@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Select } from 'semantic-ui-react'
 import axios from 'axios';
 import './Carro.css';
+import constants from './constants'
 
 class Carro extends Component {
     state = {
@@ -12,7 +13,7 @@ class Carro extends Component {
 
     componentDidMount(){
         //busca no backend os carros
-        axios.get('http://private-31df06-mockprojectcar.apiary-mock.com/carros')
+        axios.get(`${constants.URL}/carros`)
         .then((response) => {
             console.log(response.data);
           this.setState({ listCars: response.data });
@@ -23,7 +24,7 @@ class Carro extends Component {
     }
 
     // buscaPecas = () => {
-    //     axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.state.selectCar}/`)
+    //     axios.get(`${constants.URL}/carros/${this.state.selectCar}/`)
     //     .then((response) => {
     //       this.setState({ listParts: response.data });
     //     })
@@ -33,7 +34,7 @@ class Carro extends Component {
     // }
     
     confirmCar = () => {
-        // axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.state.selectCar}`)
+        // axios.post(`${constants.URL}/carros/${this.state.selectCar}`)
         // .then((response) => {
             this.props.history.push(`carros/${this.state.selectCar}`);
         // })

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, Icon } from 'semantic-ui-react'
-
 import './ModalAlert.css';
 
 class ModalAlert extends Component {

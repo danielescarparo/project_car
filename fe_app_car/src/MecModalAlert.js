@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Icon, Checkbox } from 'semantic-ui-react'
 import axios from 'axios';
-
+import constants from './constants'
 import './MecModalAlert.css';
 
 class MecModalAlert extends Component {
@@ -27,7 +27,7 @@ class MecModalAlert extends Component {
     }
 
     sendSelectedData = () => {
-      axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas/selecionadas`, {
+      axios.post(`${constants.URL}/carros/${this.props.match.params.id}/pecas/selecionadas`, {
           listaselected : `${this.state.selected}`
       }).then((response) => {
           //as pecas do mecanico foram enviadas com sucesso

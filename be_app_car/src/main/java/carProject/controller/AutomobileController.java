@@ -122,7 +122,7 @@ public class AutomobileController {
     
     /*Mecanico.js*/
     
-    //axios.get(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas`)
+    //axios.get(`${Constants.URL}/carros/${this.props.match.params.id}/pecas`)
     
     // Returns the alert state that appears to the mechanic /modal
     @RequestMapping(value = "/{id}/mecanico", method = RequestMethod.GET)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Icon } from 'semantic-ui-react'
 import axios from 'axios';
-
+import constants from './constants'
 import './ModalConfirm.css';
 
 class ModalConfirm extends Component {
@@ -20,7 +20,7 @@ class ModalConfirm extends Component {
     }
 
     exchangeOrder = (currentState) => {
-        axios.post(`http://private-31df06-mockprojectcar.apiary-mock.com/carros/${this.props.match.params.id}/pecas/trocadas`, {
+        axios.post(`${constants.URL}/carros/${this.props.match.params.id}/pecas/trocadas`, {
             state : currentState
         }).then((response) => {
             //troca feita com sucesso
