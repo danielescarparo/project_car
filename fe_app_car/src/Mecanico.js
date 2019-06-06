@@ -10,7 +10,8 @@ class Pecas extends Component {
   state = {
     listParts: [],
     activeModalWarningMec: false,
-    activeModalAlertMec: false
+    activeModalAlertMec: false,
+    previousStateMec : "none"
   };
 
   componentDidMount(){
@@ -49,12 +50,14 @@ class Pecas extends Component {
 
   verifyModal = (car) => {
     console.log("carro:", car);
-    if (car.stateModal === "warning") {
+    if ((car.stateModal === "warning") && (this.state.previousStateMec !== "warning")) {
         this.setState({ activeModalWarningMec: true });
+        this.setState({previousStateMec : "warning"});
         clearInterval(time);
     }
-    if (car.stateModal === "alert") {
+    if ((car.stateModal === "alert") && (this.state.previousStateMec !== "alert")) {
       this.setState({ activeModalAlertMec: true });
+      this.setState({previousStateMec : "alert"});
       clearInterval(time);
     }
   }

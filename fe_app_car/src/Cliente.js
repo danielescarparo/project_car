@@ -4,6 +4,7 @@ import './Cliente.css';
 import ModalWarning from './ModalWarning'
 import ModalAlert from './ModalAlert'
 import ModalConfirm from './ModalConfirm'
+import { Select } from 'semantic-ui-react'
 
 let time;
 
@@ -22,6 +23,7 @@ class Cliente extends Component {
     activeModalWarning: false,
     activeModalAlert: false,
     activeModalConfirm: false,
+    previousState : "none",
     listExchange: []
   };
 
@@ -54,12 +56,25 @@ class Cliente extends Component {
 
   addVia = () => {
     return this.state.listTypeSelect.map((via) => {
-        return <option key={via} className="carros" value={via}>{`${via}`} </option>
-    });
+      return {
+        key: via,
+        value: via,
+        text: via
+      } 
+    });    
+    // return this.state.listTypeSelect.map((via) => {
+    //     return <option key={via} className="carros" value={via}>{`${via}`} </option>
+    // });
   }
 
   receiveData = (e) => {
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  receiveDataSelect = (e, data) => {
+    console.log("verdadeiro", e, data);
+    console.log(e.target.name);
+      this.setState({[data.name]: data.value});
   }
 
   upgradeModal = () => {
@@ -131,16 +146,19 @@ class Cliente extends Component {
 
   verifyModal = (stateCarro) => {
     console.log("Estado:", stateCarro);
-    if (stateCarro.stateModal === "warning") {
+    if ((stateCarro.stateModal === "warning") && (this.state.previousState !== "warning")){
         this.setState({ activeModalWarning: true });
+        this.setState({previousState : "warning"});
         clearInterval(time);
     }
-    if (stateCarro.stateModal === "alert"){
+    if ((stateCarro.stateModal === "alert") && (this.state.previousState !== "alert")){
       this.setState({ activeModalAlert: true });
+      this.setState({previousState : "alert"});
       clearInterval(time);
     }
-    if (stateCarro.stateModal === "pending") {
+    if ((stateCarro.stateModal === "pending") && (this.state.previousState !== "pending")) {
       this.setState({ activeModalConfirm: true });
+      this.setState({previousState : "pending"});
       clearInterval(time);
     }
   }
@@ -166,10 +184,11 @@ class Cliente extends Component {
                 <div className="texto-cadastro">Quilometragem</div>
                 <input className="input-estilo" name="kilometer" onChange={this.receiveData} value={this.state.kilometer} required={true}></input>
                 <div className="texto-cadastro">Via</div>
-                <select name="routeSelect" onChange={this.receiveData} value={this.state.routeSelect} required={true} className="selectVia">
+                <Select placeholder='Selecione o tipo de via rodada' options={this.addVia()} name="routeSelect" onChange={this.receiveDataSelect} required={true}/>
+                {/* <select name="routeSelect" onChange={this.receiveData} value={this.state.routeSelect} required={true} className="selectVia">
                     <option disabled value=""> --- Selecione o tipo de via rodada --- </option>
                         {this.addVia()}
-                </select>
+                </select> */}
                 {this.fillPercentage()}
                 <button className="button-cadastro" type="submit">Submeter</button>
                 <button className="button-cadastro outras-prop-botao" onClick={this.callParts}><i className="fas fa-plus"></i> Informações</button>
