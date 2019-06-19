@@ -22,7 +22,7 @@ class Pecas extends Component {
     const copyPartsList = [];
 
     for(let index in this.state.listParts){
-      if(this.state.listParts[index].stateModal === "none")
+      if(this.state.listParts[index].stateModal === "NONE")
       {
         copyPartsList.push(
         <div key={index} className="rectangle"> 
@@ -32,7 +32,7 @@ class Pecas extends Component {
           <div><b>{`${this.state.listParts[index].description} até:`}</b> {`${this.state.listParts[index].validity}`}</div>
           <div><b>{`${this.state.listParts[index].description} atual:`}</b> {`${this.state.listParts[index].wear}`}</div>
         </div>)
-      }else if(this.state.listParts[index].stateModal === "warning"){
+      }else if(this.state.listParts[index].stateModal === "WARNING"){
         copyPartsList.push(
           <div key={index} className="rectangle"> 
             <div><b>{`Peça:`}</b> {`${this.state.listParts[index].name}`}</div>

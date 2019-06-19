@@ -12,7 +12,7 @@ class Pecas extends Component {
     listParts: [],
     activeModalWarningMec: false,
     activeModalAlertMec: false,
-    previousStateMec : "none"
+    previousStateMec : "NONE"
   };
 
   componentDidMount(){
@@ -51,14 +51,14 @@ class Pecas extends Component {
 
   verifyModal = (car) => {
     console.log("carro:", car);
-    if ((car.stateModal === "warning") && (this.state.previousStateMec !== "warning")) {
+    if ((car.stateModal === "WARNING") && (this.state.previousStateMec !== "WARNING")) {
         this.setState({ activeModalWarningMec: true });
-        this.setState({previousStateMec : "warning"});
+        this.setState({previousStateMec : "WARNING"});
         clearInterval(time);
     }
-    if ((car.stateModal === "alert") && (this.state.previousStateMec !== "alert")) {
+    if ((car.stateModal === "ALERT") && (this.state.previousStateMec !== "ALERT")) {
       this.setState({ activeModalAlertMec: true });
-      this.setState({previousStateMec : "alert"});
+      this.setState({previousStateMec : "ALERT"});
       clearInterval(time);
     }
   }
@@ -67,7 +67,7 @@ class Pecas extends Component {
     const copyPartsList = [];
 
     for(let index in this.state.listParts){
-      if(this.state.listParts[index].stateModal === "none")
+      if(this.state.listParts[index].stateModal === "NONE")
       {
         copyPartsList.push(
         <div key={index} className="rectangle"> 
@@ -77,7 +77,7 @@ class Pecas extends Component {
           <div><b>{`${this.state.listParts[index].description} até:`}</b> {`${this.state.listParts[index].validity}`}</div>
           <div><b>{`${this.state.listParts[index].description} atual:`}</b> {`${this.state.listParts[index].wear}`}</div>
         </div>)
-      }else if(this.state.listParts[index].stateModal === "warning"){
+      }else if(this.state.listParts[index].stateModal === "WARNING"){
         copyPartsList.push(
           <div key={index} className="rectangle"> 
             <div><b>{`Peça:`}</b> {`${this.state.listParts[index].name}`}</div>

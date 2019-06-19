@@ -10,6 +10,7 @@ import carProject.model.CarPart;
 import carProject.model.Route;
 import carProject.model.Race;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class AutomobileController {
         this.automobileService = automobileService;
     }	
     
-    // Return save car in MongoDB
+    // Save car in MongoDB
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)
     public void save(@RequestBody Automobile automobile){  
@@ -138,7 +139,10 @@ public class AutomobileController {
     @ResponseStatus(value=HttpStatus.OK)
     public void allMechanicPartsExchanges(
             @PathVariable("id") String id, 
-            @RequestBody List<String> listaSelecionados) {
-        automobileService.allMechanicPartsExchanges(id, listaSelecionados);
+            @RequestBody HashMap<String, Object> listaSelecionados) {
+    		String selecionado = (String) listaSelecionados.get("listaselected");
+    		List<String> selecionados = Arrays.asList(selecionado.split(","));
+    		System.out.println("Hello" + listaSelecionados);
+        automobileService.allMechanicPartsExchanges(id, selecionados);
     }   
 }

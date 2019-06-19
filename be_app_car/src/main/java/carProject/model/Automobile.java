@@ -96,10 +96,12 @@ public class Automobile {
 				part.setWear(part.getWear() + Float.parseFloat(race.getMillimeterPastille()));
 				break;
 			case "Fluido de freio":
-				part.setWear(Float.parseFloat(race.getMonthsFluid()));
+				part.setWear(part.getWear() + Float.parseFloat(race.getMonthsFluid()));
+				part.setKmPresent((double) Math.round(part.getKmPresent() + (part.getKmPresent() * Math.log(part.getWear() + 1)/10)));
 				break;
 			case "Aditivo de radiador":
-				part.setWear(Float.parseFloat(race.getMonthsAdditive()));
+				part.setWear(part.getWear() + Float.parseFloat(race.getMonthsAdditive()));
+				part.setKmPresent((double) Math.round(part.getKmPresent() + (part.getKmPresent() * Math.log(part.getWear() + 1)/10)));
 				break;
 			}
 			part.uptadeState();

@@ -24,7 +24,7 @@ class Cliente extends Component {
     activeModalWarning: false,
     activeModalAlert: false,
     activeModalConfirm: false,
-    previousState : "none",
+    previousState : "NONE",
     listExchange: []
   };
 
@@ -170,19 +170,19 @@ class Cliente extends Component {
 
   verifyModal = (stateCarro) => {
     console.log("Estado:", stateCarro);
-    if ((stateCarro.stateModal === "warning") && (this.state.previousState !== "warning")){
+    if ((stateCarro.stateModal === "WARNING") && (this.state.previousState !== "WARNING")){
         this.setState({ activeModalWarning: true });
-        this.setState({previousState : "warning"});
+        this.setState({previousState : "WARNING"});
         clearInterval(time);
     }
-    if ((stateCarro.stateModal === "alert") && (this.state.previousState !== "alert")){
+    if ((stateCarro.stateModal === "ALERT") && (this.state.previousState !== "ALERT")){
       this.setState({ activeModalAlert: true });
-      this.setState({previousState : "alert"});
+      this.setState({previousState : "ALERT"});
       clearInterval(time);
     }
-    if ((stateCarro.stateModal === "pending") && (this.state.previousState !== "pending")) {
+    if ((stateCarro.stateModal === "PENDING") && (this.state.previousState !== "PENDING")) {
       this.setState({ activeModalConfirm: true });
-      this.setState({previousState : "pending"});
+      this.setState({previousState : "PENDING"});
       clearInterval(time);
     }
   }
