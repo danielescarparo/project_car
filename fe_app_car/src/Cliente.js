@@ -112,7 +112,8 @@ class Cliente extends Component {
         monthsAdditive : `${this.state.monthsAdditive}`
     }).then((response) => {
         this.setState({kilometer : "", routeSelect : "", millimeterTire : "", millimeterDisc : "", millimeterPastille : "", monthsFluid : "", monthsAdditive : ""})
-        this.props.history.push(`/carros/${this.props.match.params.id}`);
+        this.upgradeCar();
+		this.props.history.push(`/carros/${this.props.match.params.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -199,7 +200,7 @@ class Cliente extends Component {
       <Fragment>
         <ModalWarning active={this.state.activeModalWarning} changesModalWarning={this.changesModalWarning}/>
         <ModalAlert active={this.state.activeModalAlert} changesModalAlert={this.changesModalAlert}/>
-        <ModalConfirm active={this.state.activeModalConfirm} changesModalConfirm={this.changesModalConfirm} listExchange={listExchange} match={this.props.match}/>
+        <ModalConfirm active={this.state.activeModalConfirm} changesModalConfirm={this.changesModalConfirm} listExchange={listExchange} match={this.props.match} upgradeCar = {this.upgradeCar}/>
         <div className="dois-blocos">
         <form className="html-login" onSubmit={this.submitData}>        
           <div className="margem-cadastro">

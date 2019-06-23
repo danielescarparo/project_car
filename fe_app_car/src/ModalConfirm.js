@@ -23,7 +23,8 @@ class ModalConfirm extends Component {
         axios.post(`${constants.URL}/carros/${this.props.match.params.id}/pecas/trocadas`, {
             state : currentState
         }).then((response) => {
-            //troca feita com sucesso
+			//troca feita com sucesso
+			this.props.upgradeCar();
           })
           .catch((error) => {
             console.log(error);
