@@ -17,6 +17,10 @@ class Pecas extends Component {
       console.log(error);
     });
   }
+  
+  voltarCarros = () => {
+    this.props.history.push(`/carros/${this.props.match.params.id}`);
+  } 
 
   displaysRectangles = () => {
     const copyPartsList = [];
@@ -67,8 +71,11 @@ class Pecas extends Component {
   render() {
     return (
       <div>
-        <div className="titulo-pecas">Informações das peças</div> 
+        <div className="titulo-pecas">Informações das peças</div>
+        <div className="centralizar-voltar">
         <div className="group-pecas">{this.displaysRectangles()}</div>
+        <button className="button-cadastro voltar-botao" onClick={this.voltarCarros}>Voltar</button>
+        </div>
       </div>
     );
   }

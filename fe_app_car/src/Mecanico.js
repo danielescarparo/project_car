@@ -11,8 +11,7 @@ class Pecas extends Component {
   state = {
     listParts: [],
     activeModalWarningMec: false,
-    activeModalAlertMec: false,
-    previousStateMec : "NONE"
+    activeModalAlertMec: false
   };
 
   componentDidMount(){
@@ -29,6 +28,14 @@ class Pecas extends Component {
   }
 
   getStatusModal = () => {
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/pecas`)
+    .then((response) => {
+      this.setState({ listParts: response.data });
+    })
+    .catch((error) => {
+      console.log(error);
+    });  
+
     axios.get(`${constants.URL}/carros/${this.props.match.params.id}/mecanico`)
     .then((response) => {
       console.log(response.data);
@@ -51,17 +58,17 @@ class Pecas extends Component {
 
   verifyModal = (car) => {
     console.log("carro:", car);
-    if ((car.stateModal === "WARNING") && (this.state.previousStateMec !== "WARNING")) {
-        this.setState({ activeModalWarningMec: true });
-        this.setState({previousStateMec : "WARNING"});
-        clearInterval(time);
-    }
-    if ((car.stateModal === "ALERT") && (this.state.previousStateMec !== "ALERT")) {
-      this.setState({ activeModalAlertMec: true });
-      this.setState({previousStateMec : "ALERT"});
-      clearInterval(time);
-    }
-  }
+	if(car.clientAction === "true"){
+		if (car.stateModal === "WARNING") {
+			this.setState({ activeModalWarningMec: true });
+			clearInterval(time);
+		}
+		if (car.stateModal === "ALERT") {
+		  this.setState({ activeModalAlertMec: true });
+		  clearInterval(time);
+		}
+	}
+  }	
 
   displaysRectangles = () => {
     const copyPartsList = [];

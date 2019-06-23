@@ -12,6 +12,7 @@ class MecModalAlert extends Component {
         const copySelected = [...this.state.selected];
         copySelected.push(this.props.listPartsAlert[index].id);
         this.setState({selected : copySelected});
+		console.log("Copiou", this.props.listPartsAlert[index].id);
     }
 
     checkboxAlert = () => {
@@ -30,7 +31,7 @@ class MecModalAlert extends Component {
       axios.post(`${constants.URL}/carros/${this.props.match.params.id}/pecas/selecionadas`, {
           listaselected : `${this.state.selected}`
       }).then((response) => {
-          //as pecas do mecanico foram enviadas com sucesso
+			this.state.selected = [];
         })
         .catch((error) => {
           console.log(error);

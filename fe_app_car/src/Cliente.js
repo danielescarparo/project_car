@@ -78,7 +78,18 @@ class Cliente extends Component {
       this.setState({[data.name]: data.value});
   }
 
-  upgradeModal = () => {
+  upgradeModal = async () => {
+    this.upgradeCar();
+
+    axios.get(`${constants.URL}/carros/${this.props.match.params.id}/trocas`)
+    .then((response) => {
+        this.setState({ listExchange : response.data });
+        console.log("aqui",response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+
     axios.get(`${constants.URL}/carros/${this.props.match.params.id}/modal`, )
     .then((response) => {
         this.setState({ stateCarro : response.data });
@@ -200,7 +211,7 @@ class Cliente extends Component {
       <Fragment>
         <ModalWarning active={this.state.activeModalWarning} changesModalWarning={this.changesModalWarning}/>
         <ModalAlert active={this.state.activeModalAlert} changesModalAlert={this.changesModalAlert}/>
-        <ModalConfirm active={this.state.activeModalConfirm} changesModalConfirm={this.changesModalConfirm} listExchange={listExchange} match={this.props.match} upgradeCar = {this.upgradeCar}/>
+        <ModalConfirm active={this.state.activeModalConfirm} changesModalConfirm={this.changesModalConfirm} listExchange={listExchange} match={this.props.match} upgradeCar={this.upgradeCar}/>
         <div className="dois-blocos">
         <form className="html-login" onSubmit={this.submitData}>        
           <div className="margem-cadastro">

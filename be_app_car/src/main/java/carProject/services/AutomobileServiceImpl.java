@@ -21,11 +21,13 @@ import carProject.repository.AutomobileRepository;
 @Service("AutomobileService")
 public class AutomobileServiceImpl implements AutomobileService{
 	private AutomobileRepository automobileRepository;
+	private Boolean clientAction; 
 
     @Autowired
     public 
     AutomobileServiceImpl(AutomobileRepository automobileRepository){
         this.automobileRepository = automobileRepository;
+        this.clientAction = false;
     }
     
 	@Override
@@ -55,7 +57,9 @@ public class AutomobileServiceImpl implements AutomobileService{
 		
 		automobile.get().updateInformations(race);
 		
-		automobileRepository.save(automobile.get());		
+		automobileRepository.save(automobile.get());
+		
+		clientAction = true;
 	}
 
 	@Override
@@ -169,6 +173,8 @@ public class AutomobileServiceImpl implements AutomobileService{
 			}
 			HashMap<String, String> hashMap = new HashMap<String, String>();
 			hashMap.put("stateModal", stateModal.name());
+			hashMap.put("clientAction", Boolean.toString(clientAction));
+			clientAction = false;
 			return hashMap;
 	
 		}		
