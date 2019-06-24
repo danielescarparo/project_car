@@ -11,6 +11,9 @@ import java.io.IOException;
 
 @Component
 public class CorsConfig extends OncePerRequestFilter  {
+   /**
+    * Class responsible for cors
+    */
 
     @Override
     public void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {

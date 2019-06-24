@@ -7,5 +7,8 @@ import carProject.model.Automobile;
 
 @Repository
 public interface AutomobileRepository extends MongoRepository<Automobile, String>{
+    /**
+     * Interface of repository automobile
+     */
 
 }

@@ -31,7 +31,7 @@ class MecModalAlert extends Component {
       axios.post(`${constants.URL}/carros/${this.props.match.params.id}/pecas/selecionadas`, {
           listaselected : `${this.state.selected}`
       }).then((response) => {
-			this.state.selected = [];
+			this.setState({selected : []});
         })
         .catch((error) => {
           console.log(error);

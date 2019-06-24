@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "carpart")
 public class CarPart {
+   /**
+    * Class part
+    */
     @Id
     private String id;
     private String name;
@@ -18,6 +21,9 @@ public class CarPart {
     private float validity;
     private float wear;
 
+    /**
+     * Constructor
+     */
 	public CarPart(String name, Route route, Double kmLifespan, Double kmPresent, DetritionState stateModal,
 			PartType partType, float validity, float wear) {
 		super();
@@ -131,7 +137,11 @@ public class CarPart {
 	}
 
 
-
+   /**
+    * Mapping return
+    * @param carPart
+    * @return HashMap<String, Object> 
+    */	
 	public HashMap<String, Object> toMap(CarPart carPart){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -168,6 +178,9 @@ public class CarPart {
 
 	}
 	
+   /**
+    * Update state modal
+    */	
 	public void uptadeState() {
 		switch(partType) {
 		case DEPTH:
@@ -188,6 +201,10 @@ public class CarPart {
 		}
 	}
 	
+   /**
+    * percentage calculation
+    * @return int porcentage
+    */	
 	private int percentage() {
 		
 		if((getPartType() == PartType.DEPTH) || (getPartType() == PartType.THICKNESS)){
@@ -200,7 +217,10 @@ public class CarPart {
 		}
 		return 0;
 	}
-	
+   /**
+    * create description
+    * @return HashMap<String, Object>
+    */		
 	public HashMap<String, Object> description() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		

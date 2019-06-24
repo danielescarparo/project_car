@@ -20,9 +20,15 @@ import carProject.repository.AutomobileRepository;
 
 @Service("AutomobileService")
 public class AutomobileServiceImpl implements AutomobileService{
+   /**
+    * class service automobile
+    */
 	private AutomobileRepository automobileRepository;
 	private Boolean clientAction; 
 
+    /**
+     * Constructor
+     */
     @Autowired
     public 
     AutomobileServiceImpl(AutomobileRepository automobileRepository){
@@ -30,27 +36,46 @@ public class AutomobileServiceImpl implements AutomobileService{
         this.clientAction = false;
     }
     
+    /**
+     * Save car in MongoDB
+     * @param Automobile
+     */
 	@Override
 	public void save(Automobile automobile) {
 		automobileRepository.save(automobile);
 	}
 	
+    /**
+     * Delete all cars in MongoDB
+     */
     @Override
     public void deleteAll(){
     	automobileRepository.deleteAll();
     }
     
-
+    /**
+     * Responsible for searching all cars
+     * @return car list
+     */
 	@Override
 	public List<Automobile> findAll() {
 		return automobileRepository.findAll();
 	}
 
+    /**
+     * Responsible for searching all route
+     * @return route list
+     */
 	@Override
 	public List<Route> listRoute(){
 		return Arrays.asList(Route.values()) ;
 	}
 	
+    /**
+     * Send race traveled to be saved
+     * @param car id
+     * @param run through
+     */
 	@Override
 	public void sendRace(String id, Race race) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -61,7 +86,12 @@ public class AutomobileServiceImpl implements AutomobileService{
 		
 		clientAction = true;
 	}
-
+	
+    /**
+     * Find car with details of its parts
+     * @param car id
+     * @return automobile
+     */
 	@Override
 	public Automobile findCar(String id) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -74,6 +104,11 @@ public class AutomobileServiceImpl implements AutomobileService{
 		return null;
 	}
 	
+    /**
+     * Calculates the percentage of each part
+     * @param car id
+     * @return HashMap<String, Object>
+     */
 	@Override
 	public HashMap<String, Object> partsDescription(String id){
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -86,6 +121,11 @@ public class AutomobileServiceImpl implements AutomobileService{
 		return null;		
 	}
 
+    /**
+     * Modal information that will be displayed
+     * @param car id
+     * @return HashMap<String, Object>
+     */
 	@Override
 	public HashMap<String, String> globalDetritionState(String id) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -105,6 +145,11 @@ public class AutomobileServiceImpl implements AutomobileService{
 		return null;
 	}
 
+    /**
+     * List of parts that the mechanic wants to change
+     * @param car id
+     * @return parts list
+     */
 	@Override
 	public List<CarPart> findPartsList(String id) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -119,7 +164,12 @@ public class AutomobileServiceImpl implements AutomobileService{
 		}
 		return listaCarParts;	
 	}
-
+	
+    /**
+     * List of parts with your information
+     * @param car id
+     * @return List<HashMap<String, Object>>
+     */  
 	@Override
 	public List<HashMap<String, Object>> findPartsDetails(String id) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -133,7 +183,12 @@ public class AutomobileServiceImpl implements AutomobileService{
 	
 		return listMap;
 	}
-
+	
+    /**
+     * Whether the parts will actually be changed or not
+     * @param car id
+     * @param state
+     */
 	@Override
 	public void acceptanceExchangeParts(String id, boolean state) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -159,7 +214,12 @@ public class AutomobileServiceImpl implements AutomobileService{
 		}		
 
 	}
-
+	
+    /**
+     *  Returns the alert state that appears to the mechanic
+     * @param car id
+     * @return HashMap<String, Object>
+     */ 
 	@Override
 	public HashMap<String, String> stateModalMechanic(String id) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);
@@ -180,7 +240,11 @@ public class AutomobileServiceImpl implements AutomobileService{
 		}		
 		return null;
 	}
-
+    /**
+     * All parts that have been selected for exchange by the mechanic
+     * @param car id
+     * @param lista dos selecionados
+     */
 	@Override
 	public void allMechanicPartsExchanges(String id, List<String> listaSelecionados) {
 		Optional<Automobile> automobile = automobileRepository.findById(id);

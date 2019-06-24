@@ -9,6 +9,9 @@ import java.util.List;
 
 @Document(collection = "cars")
 public class Automobile {
+   /**
+    * Class automobile
+    */
     @Id
     private String id;
     private String brand;
@@ -18,6 +21,9 @@ public class Automobile {
     private String engine;
     private List<CarPart> carPart;    
     
+    /**
+     * Constructor
+     */
 	public Automobile(String brand, String model, String version, String year, String engine,
 			List<CarPart> carPart) {
 		this.brand = brand;
@@ -80,6 +86,10 @@ public class Automobile {
 		this.carPart = carPart;
 	}
 	
+   /**
+    * Update informations in cars
+    * @param race
+    */	
 	public void updateInformations(Race race) {
 		
 		for(CarPart part : carPart) {
@@ -108,6 +118,10 @@ public class Automobile {
 		}
 	}
 	
+   /**
+    * Description in cars
+    * @return List<HashMap<String, Object>>
+    */	
 	public List<HashMap<String, Object>> description() {
 		List<HashMap<String, Object>> mapParts = new ArrayList<HashMap<String, Object>>();
 		

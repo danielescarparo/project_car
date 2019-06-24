@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class carProject {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+       /**
+        * Main class
+        */
 		SpringApplication.run(carProject.class, args);
 	}
 

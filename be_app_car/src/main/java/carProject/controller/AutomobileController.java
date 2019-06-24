@@ -14,51 +14,66 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-
-/*Automobile, recieves the http request to control car's data*/
 @RestController
 @RequestMapping("/carros")
 public class AutomobileController {
+   /**
+    * Automobile, recieves the http request to control car's data
+    */
     private AutomobileService automobileService;
 
+    /**
+     * Constructor
+     */
     @Autowired
     public AutomobileController(AutomobileService automobileService){
         this.automobileService = automobileService;
     }	
     
-    // Save car in MongoDB
+    /**
+     * Save car in MongoDB
+     * @param Automobile
+     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)
     public void save(@RequestBody Automobile automobile){  
         automobileService.save(automobile);
     }
     
-    // Delete all cars in MongoDB
+    /**
+     * Delete all cars in MongoDB
+     */
     @RequestMapping(value = "", method = RequestMethod.DELETE)
     @ResponseStatus(value=HttpStatus.OK)
     public void deleteAll(){  
         automobileService.deleteAll();
     }
     
-    /*Carro.js*/
-    
-    // Return all cars in MongoDB
+    /**
+     * Responsible for searching all cars
+     * @return car list
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public List<Automobile> findAll(){  
         return automobileService.findAll();
     }
     
-    /*Cliente.js*/
-    
-    // Returns /corrida/meta
+    /**
+     * Responsible for searching all route
+     * @return route list
+     */
     @RequestMapping(value = "/rotas", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public List<Route> listRoute() {
         return automobileService.listRoute();
     }
     
-    //  /sub
+    /**
+     * Send race traveled to be saved
+     * @param car id
+     * @param run through
+     */
     @RequestMapping(value = "/{id}/corrida", method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)
     public void sendRace(
@@ -67,7 +82,11 @@ public class AutomobileController {
     	automobileService.sendRace(id, race);
     }
     
-    // Returns car with details of its parts
+    /**
+     * Find car with details of its parts
+     * @param car id
+     * @return automobile
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public Automobile findCar(
@@ -75,23 +94,35 @@ public class AutomobileController {
         return automobileService.findCar(id);
     }
     
-    // Returns PORCENTAGEM
+    /**
+     * Calculates the percentage of each part
+     * @param car id
+     * @return HashMap<String, Object>
+     */
     @RequestMapping(value = "/{id}/descricao", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public HashMap<String, Object> percentage(
             @PathVariable("id") String id) {
         return automobileService.partsDescription(id);
-    }    
-	
-    // Returns modal information that will be displayed
+    }  
+    
+    /**
+     * Modal information that will be displayed
+     * @param car id
+     * @return HashMap<String, Object>
+     */
     @RequestMapping(value = "/{id}/modal", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public HashMap<String, String> globalDetritionState( 
             @PathVariable("id") String id) {
         return automobileService.globalDetritionState(id);
     }
-
-    // Returns list of parts that the mechanic wants to change
+    
+    /**
+     * List of parts that the mechanic wants to change
+     * @param car id
+     * @return parts list
+     */
     @RequestMapping(value = "/{id}/trocas", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public List<CarPart> findPartsList( 
@@ -99,9 +130,11 @@ public class AutomobileController {
         return automobileService.findPartsList(id);
     }
     
-    /*Pecas.js*/
-    
-    // Returns list of parts with your information
+    /**
+     * List of parts with your information
+     * @param car id
+     * @return List<HashMap<String, Object>>
+     */    
     @RequestMapping(value = "/{id}/pecas", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public List<HashMap<String, Object>> findPartsDetails( 
@@ -109,9 +142,11 @@ public class AutomobileController {
         return automobileService.findPartsDetails(id);
     }
     
-    /*ModalConfirm.js*/
-    
-    //  Whether the parts will actually be changed or not
+    /**
+     * Whether the parts will actually be changed or not
+     * @param car id
+     * @param state
+     */
     @RequestMapping(value = "/{id}/pecas/trocadas", method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)
     public void acceptanceExchangeParts(
@@ -121,11 +156,11 @@ public class AutomobileController {
     	automobileService.acceptanceExchangeParts(id, state.get("state").booleanValue());
     }
     
-    /*Mecanico.js*/
-    
-    //axios.get(`${Constants.URL}/carros/${this.props.match.params.id}/pecas`)
-    
-    // Returns the alert state that appears to the mechanic /modal
+    /**
+     *  Returns the alert state that appears to the mechanic
+     * @param car id
+     * @return HashMap<String, Object>
+     */ 
     @RequestMapping(value = "/{id}/mecanico", method = RequestMethod.GET)
     @ResponseStatus(value=HttpStatus.OK)
     public HashMap<String, String> stateModalMechanic( 
@@ -133,8 +168,11 @@ public class AutomobileController {
         return automobileService.stateModalMechanic(id);
     }
     
-    /*MecModalAlert.js*/
-    // All parts that have been selected for exchange by the mechanic
+    /**
+     * All parts that have been selected for exchange by the mechanic
+     * @param car id
+     * @param lista dos selecionados
+     */
     @RequestMapping(value = "/{id}/pecas/selecionadas", method = RequestMethod.POST)
     @ResponseStatus(value=HttpStatus.OK)
     public void allMechanicPartsExchanges(

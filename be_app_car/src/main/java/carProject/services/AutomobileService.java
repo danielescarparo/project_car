@@ -9,6 +9,10 @@ import carProject.model.CarPart;
 import carProject.model.Race;
 
 public interface AutomobileService {
+    /**
+     * Interface of service automobile
+     */
+	
 	public void save(Automobile automobile);
 	public void deleteAll();
 	public List<Automobile> findAll();

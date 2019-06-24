@@ -1,14 +1,20 @@
 package carProject.model;
 
 public class Race {
+   /**
+    * class responsible for get information in front-end
+    */
     private Double kilometer;
     private String route;
     private String millimeterTire;
     private String millimeterDisc;
     private String millimeterPastille;
     private String monthsFluid;
-    private String monthsAdditive;      
+    private String monthsAdditive; 
     
+    /**
+     * Constructor
+     */
 	public Race(Double kilometer, String route, String millimeterTire, String millimeterDisc, String millimeterPastille,
 			String monthsFluid, String monthsAdditive) {
 		this.kilometer = kilometer;
