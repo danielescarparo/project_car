@@ -91,9 +91,9 @@ public class Automobile {
     * @param race
     */	
 	public void updateInformations(Race race) {
-		
+		float multiplier = (Route.ESTRADA.name().equals(race.getRoute()) ? 0.0f : 0.2f);
 		for(CarPart part : carPart) {
-			part.setKmPresent(part.getKmPresent() + race.getKilometer());
+			part.setKmPresent(part.getKmPresent() + race.getKilometer() + Math.round((multiplier * race.getKilometer())));
 
 			switch(part.getName()) {
 			case "Pneu":
