@@ -3,4 +3,6 @@ Final project for the discipline of object-oriented systems in my graduation, gi
 
 **Summary:** Projet of a car application, which simulates warnings for the user and mecanic
 
-**Technologies used:** Front-end: React - Back-end: Java and Spring Boot
+**Technologies used:** 
+- Front-end: React
+- Back-end: Java and Spring Boot
